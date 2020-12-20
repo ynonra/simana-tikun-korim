@@ -1,0 +1,180 @@
+import { parashotHebEnDic } from '../data/parashot-by-books-dic';
+import pagesDic from '../data/pages-dic';
+
+export async function scrollerHandlers(
+  isFirstScroll,
+  isBookmark,
+  specificLocationObj,
+  bookmarkData,
+  scrollToAliyaHandler
+) {
+  if (!isFirstScroll) return;
+  if (isBookmark && bookmarkData) {
+    const { line: bookmarkLineIndex } = bookmarkData;
+    scrollToLineIndex(bookmarkLineIndex);
+  } else if (specificLocationObj) {
+    scrollToLineIndex(specificLocationObj.lineIndex);
+  } else if (!isBookmark) {
+    scrollToAliyaHandler();
+  }
+}
+
+export function createFunctionScrollToAliyaHandler(
+  isHoliday,
+  holidayHeb,
+  parashaName,
+  pageNum,
+  aliyaNum,
+  parashatHashavuaObj
+) {
+  return () => {
+    const aliyaElementName = getAliyaElementName(
+      isHoliday,
+      holidayHeb,
+      parashaName,
+      aliyaNum,
+      parashatHashavuaObj
+    );
+    if (
+      !checkAliyaSignExist(
+        isHoliday,
+        holidayHeb,
+        aliyaElementName,
+        pageNum,
+        aliyaNum,
+        parashaName
+      )
+    )
+      return;
+    scrollToElementName(aliyaElementName);
+    addTextGlowAnimation(
+      document.querySelector(`[name*="${aliyaElementName}"]`)
+    );
+  };
+}
+
+function scrollToLineIndex(lineIndex) {
+  const lineElementName = 'line-index-' + lineIndex;
+  if (!document.querySelector(`[name="${lineElementName}"]`)) return;
+  scrollToElementName(lineElementName);
+}
+
+function getAliyaElementName(
+  isHoliday,
+  holidayHeb,
+  parashaName,
+  aliyaNum,
+  parashatHashavuaObj
+) {
+  if (isHoliday) return getFirstHolidayAliyaName(holidayHeb);
+
+  let aliyaElementName = [
+    parashotHebEnDic[parashaName],
+    'שני',
+    'שלישי',
+    'רביעי',
+    'חמישי',
+    'שישי',
+    'שביעי',
+  ][aliyaNum - 1];
+  if (
+    parashatHashavuaObj &&
+    parashatHashavuaObj.isConnectedParasha &&
+    aliyaNum != 1
+  ) {
+    aliyaElementName = 'מחוברות ' + aliyaElementName;
+  }
+  if (aliyaNum == 1) {
+    aliyaElementName = aliyaElementName.split(' ')[0];
+  }
+  const aliyaSignElement = document.querySelector(
+    `[name*="${aliyaElementName}"]`
+  );
+  const aliyaSignElementName =
+    aliyaSignElement && aliyaSignElement.getAttribute('name');
+  return aliyaSignElementName;
+}
+
+function getFirstHolidayAliyaName(holidayHeb) {
+  return holidayHeb.includes('מפטיר')
+    ? 'מפטיר'
+    : holidayHeb === 'חנוכה'
+    ? 'נר ראשון'
+    : holidayHeb === 'שמיני עצרת'
+    ? 'וזאת הברכה'
+    : holidayHeb.match('[בגדהוז]. סוכות')
+    ? 'ראשון עד רביעי'
+    : holidayHeb.includes('פרשת ')
+    ? holidayHeb
+    : 'ראשון';
+}
+
+function checkAliyaSignExist(
+  isHoliday,
+  holidayHeb,
+  aliyaElementName,
+  pageNum,
+  aliyaNum,
+  parashaName
+) {
+  return (
+    (!isHoliday &&
+      aliyaElementName &&
+      pageNum ===
+        pagesDic[parashotHebEnDic[parashaName]]['aliya_' + aliyaNum]) ||
+    (isHoliday &&
+      document.querySelector(
+        `[name="${getFirstHolidayAliyaName(holidayHeb)}"]`
+      ))
+  );
+}
+
+function scrollToElementName(aliyaElementName) {
+  const appBarElem = document.querySelector('.app-bar');
+  const toraPage = document.querySelector('.tora-page');
+  const isAppBarFixed = toraPage.classList.contains('app-bar-fixed');
+  const lineElem = document.querySelector(
+    `.humash-text [name="${aliyaElementName}"]`
+  );
+  const scrollOpt = { behavior: 'smooth', block: 'start' };
+
+  if (!isAppBarFixed) {
+    lineElem.scrollIntoView(scrollOpt);
+  } else {
+    const { height: AppBarHeight } = appBarElem.getBoundingClientRect();
+    const { top: lineDisFromTop } = lineElem.getBoundingClientRect();
+
+    toraPage.scrollTo({
+      ...scrollOpt,
+      left: 0,
+      top: lineDisFromTop - AppBarHeight - 5,
+    });
+  }
+}
+
+function addTextGlowAnimation(element) {
+  element.classList.add('text-glow');
+  element.style.animation = 'text-shadow-fade-out 5s 3s forwards';
+}
+
+export function disableScrolling(elem) {
+  if (elem) {
+    elem.classList.add('scroll-lock');
+  } else {
+    let pageElements = document.querySelectorAll('.page');
+    for (let pageElem of pageElements) {
+      pageElem.classList.add('scroll-lock');
+    }
+  }
+}
+
+export function enableScrolling(elem) {
+  if (elem) {
+    elem.classList.remove('scroll-lock');
+  } else {
+    let pageElements = document.querySelectorAll('.page');
+    for (let pageElem of pageElements) {
+      pageElem.classList.remove('scroll-lock');
+    }
+  }
+}

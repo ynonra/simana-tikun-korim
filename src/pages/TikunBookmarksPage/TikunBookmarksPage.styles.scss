@@ -1,0 +1,14 @@
+.bookmarks-page {
+  & .bookmarks-buttons-container {
+    margin-top: 1.4em;
+    & .bookmark-button-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+
+  h2 {
+    text-align: center;
+  }
+}

@@ -1,0 +1,167 @@
+@import '../../util/css-variables.scss';
+
+.tikun-reading-page-container {
+  .tora-page {
+    outline: none;
+  }
+  outline: none;
+  min-height: 100vh;
+
+  &.style-regular {
+    color: $regular-style-color;
+    background-color: $regular-style-color;
+    & .humash-text {
+      background-color: $regular-style-background;
+    }
+  }
+
+  &.style-dark {
+    color: $dark-style-color;
+    background-color: $dark-style-background;
+    & .humash-text {
+      background-color: $dark-style-background;
+    }
+  }
+
+  &.style-tora-paper {
+    color: $klaf-style-color;
+    background-color: $klaf-style-background;
+    & .humash-text {
+      background-color: $klaf-style-background;
+    }
+  }
+
+  .humash-text {
+    font-family: $tora-font-family;
+    padding: 0.8rem;
+    padding-left: 7.5vw;
+    padding-top: 0.2em;
+    transition: 0.3s color;
+    overflow-x: hidden;
+
+    cursor: pointer;
+
+    &.is-shirat-hayam-mode #one-column-container {
+      padding-right: 0;
+      font-size: 3.7vw;
+    }
+
+    &.is-shirat-hayam-mode #two-columns-container {
+      & #column-with-nikud {
+        padding-right: 0;
+        font-size: 1.8vw;
+      }
+      & #column-without-nikud {
+        padding-right: 2.5%;
+        font-size: 1.8vw;
+      }
+    }
+
+    & #one-column-container {
+      font-size: 4.3vw;
+      padding-left: 1%;
+      padding-right: 13%;
+    }
+
+    & #two-columns-container {
+      display: flex;
+
+      & #column-with-nikud {
+        width: 100%;
+        font-size: 2.2vw;
+        padding-right: 6%;
+      }
+
+      & #column-without-nikud {
+        width: 95%;
+        font-size: 2.2vw;
+        padding-left: 1%;
+        padding-right: 4%;
+      }
+    }
+  }
+}
+
+.tikun-reading-page-container {
+  & #page-swiping-gradient {
+    display: none;
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+
+    &.left-gradient {
+      display: block;
+      background-image: linear-gradient(
+        to left,
+        rgba(0, 0, 0, 0),
+        rgba(0, 0, 0, 0) 92%,
+        #66666633,
+        #33333366 100%
+      );
+    }
+    &.right-gradient {
+      display: block;
+      background-image: linear-gradient(
+        to right,
+        rgba(0, 0, 0, 0),
+        rgba(0, 0, 0, 0) 92%,
+        #66666633,
+        #33333366 100%
+      );
+    }
+  }
+  &.style-dark #page-swiping-gradient {
+    &.left-gradient {
+      background-image: linear-gradient(
+        to left,
+        rgba(0, 0, 0, 0),
+        rgba(0, 0, 0, 0) 92%,
+        #cccccc33,
+        #795f5f99 100%
+      );
+    }
+    &.right-gradient {
+      background-image: linear-gradient(
+        to right,
+        rgba(0, 0, 0, 0),
+        rgba(0, 0, 0, 0) 92%,
+        #cccccc33,
+        #ffffff99 100%
+      );
+    }
+  }
+
+  .page-swiped-arrows {
+    $distanceFromEnd: 20px;
+
+    position: fixed;
+    top: 50%;
+    z-index: 150;
+    width: 30px;
+    visibility: hidden;
+    opacity: 0;
+    transition: 0.1s;
+
+    &#page-swiped-right-arrow {
+      right: $distanceFromEnd * 1.5;
+      transform: translateY(-50%);
+      &.show-arrow {
+        opacity: 1;
+        right: $distanceFromEnd;
+        visibility: visible;
+      }
+    }
+
+    &#page-swiped-left-arrow {
+      left: $distanceFromEnd * 1.5;
+      transform: translateY(-50%) rotate(180deg);
+      &.show-arrow {
+        opacity: 1;
+        left: $distanceFromEnd;
+        visibility: visible;
+      }
+    }
+  }
+}

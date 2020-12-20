@@ -1,0 +1,54 @@
+@import '../../util//css-variables.scss';
+
+.app-bar-container {
+  &.fixed + * {
+    padding-top: $app-bar-height;
+  }
+  .MuiToolbar-regular {
+    min-height: unset;
+  }
+  .app-bar {
+    box-shadow: none;
+
+    .toolbar {
+      background-image: linear-gradient(
+        to right,
+        $dark-blue-gradient,
+        $light-blue-gradient
+      );
+      color: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: $app-bar-height;
+    }
+  }
+  & .right-side {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
+}
+
+#simple-menu a {
+  text-decoration: none;
+  color: #000;
+}
+
+.tikun-reading-page-container {
+  &.style-dark .toolbar {
+    background-image: linear-gradient(
+      to right,
+      $dark-darker-blue-gradient,
+      $light-darker-blue-gradient
+    );
+    color: #ddd;
+  }
+  &.style-tora-paper .toolbar {
+    background-image: linear-gradient(
+      to right,
+      $light-orange-gradient,
+      $dark-orange-gradient
+    );
+  }
+}

@@ -1,0 +1,99 @@
+@import '../../util//css-variables.scss';
+
+.teamim-btns-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 10px auto;
+  max-width: 600px;
+
+  @media screen and (max-width: 390px) {
+    margin: 7px 2px;
+
+    .MuiButton-root {
+      margin: 2px !important;
+      font-size: 8vw !important;
+      &:first-of-type {
+        margin-bottom: 0.5em !important;
+      }
+    }
+  }
+
+  .Mui-disabled {
+    color: #666 !important;
+    border-color: #ccc !important;
+  }
+  .MuiButton-root {
+    font-family: $tora-font-family;
+    font-size: 1.7em;
+    margin: 3px;
+
+    &:first-of-type {
+      margin-bottom: 0.5em;
+      font-family: inherit;
+      padding-bottom: 0.1em;
+      word-spacing: 2px;
+    }
+  }
+
+  .MuiButton-contained,
+  .MuiButton-text,
+  .MuiButton-outlined {
+    padding: 0.15px 7px 0;
+    // line-height: 1.4;
+    line-height: 1.2;
+    padding-top: 0.15em;
+  }
+
+  .MuiButton-contained {
+    border: 1px solid transparent;
+    &.ashkenazi {
+      color: #fff;
+      background-color: $ashkenazi-color;
+    }
+    &.marokai {
+      color: #fff;
+      background-color: $marokai-color;
+    }
+    &.jerusalemi {
+      color: #fff;
+      background-color: $jerusalemi-color;
+    }
+  }
+
+  .MuiButton-outlined {
+    background-color: #fff;
+    &.ashkenazi {
+      color: $ashkenazi-color;
+      border-color: $ashkenazi-border-color;
+    }
+    &.marokai {
+      color: $marokai-color;
+      border-color: $marokai-border-color;
+    }
+    &.jerusalemi {
+      color: $jerusalemi-color;
+      border-color: $jerusalemi-border-color;
+    }
+  }
+
+  .MuiButton-text {
+    &.ashkenazi {
+      color: $ashkenazi-color;
+    }
+    &.marokai {
+      color: $marokai-color;
+    }
+    &.jerusalemi {
+      color: $jerusalemi-color;
+    }
+  }
+
+  .MuiButton-startIcon {
+    margin-left: 4px;
+
+    #play-icon {
+      transform: rotateY(180deg);
+    }
+  }
+}

@@ -1,0 +1,173 @@
+html {
+  font-family: AssistantRegular, sans-serif;
+  font-family: Marco, sans-serif;
+  letter-spacing: 0.4px;
+  font-size: 20px;
+  * {
+    font-family: inherit;
+    letter-spacing: inherit;
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+body {
+  direction: rtl;
+  font-family: inherit !important;
+}
+.App {
+  min-height: 100vh;
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
+.page {
+  display: flex;
+  height: 100vh;
+  overflow-y: visible;
+  overflow-x: hidden;
+  flex-direction: column;
+  justify-content: space-between;
+
+  &.clear-justify-content {
+    justify-content: unset;
+  }
+}
+
+.default-background {
+  position: relative;
+  background: bottom url('./images/רקע\ תיקון\ קוראים-04.png');
+  background-size: cover;
+  &.extra-opacity {
+    background-image: url('./images/רקע\ תיקון\ קוראים-04-שקוף\ מאוד.png');
+  }
+}
+
+.default-background-with-fade {
+  background: bottom url('./images/רקע\ תיקון\ קוראים-04.png');
+  background-size: cover;
+}
+
+.scroll-lock {
+  overflow-y: hidden;
+}
+
+.hidden {
+  display: none;
+}
+
+.unvisible {
+  visibility: hidden;
+}
+
+.route-wrapper {
+  position: relative;
+  width: 100vw;
+}
+
+.route-wrapper > div {
+  position: absolute;
+  width: 100vw;
+}
+
+.flex-break {
+  flex-basis: 100%;
+  height: 0;
+}
+
+.btn-hover-effect {
+  transition-duration: 0.15s;
+  transition-property: opacity transform;
+  opacity: 1;
+
+  &:hover {
+    opacity: 0.85;
+  }
+
+  &:active {
+    transform: scale(0.97, 0.97);
+  }
+}
+
+.noselect {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+// @font-face {
+//   font-family: 'KeterYGMedium';
+//   src: url('./assets/fonts/KeterYGMedium/KeterYGMedium.eot');
+//   src: url('./assets/fonts/KeterYGMedium/KeterYGMedium.eot')
+//       format('embedded-opentype'),
+//     url('./assets/fonts/KeterYGMedium/KeterYGMedium.woff2') format('woff2'),
+//     url('./assets/fonts/KeterYGMedium/KeterYGMedium.woff') format('woff'),
+//     url('./assets/fonts/KeterYGMedium/KeterYGMedium.ttf') format('truetype'),
+//     url('./assets/fonts/KeterYGMedium/KeterYGMedium.svg#KeterYGMedium')
+//       format('svg');
+// }
+
+@font-face {
+  font-family: 'TaameyFrankCLMMedium';
+  src: url('./assets/fonts/TaameyFrankCLMMedium/TaameyFrankCLMMedium.eot');
+  src: url('./assets/fonts/TaameyFrankCLMMedium/TaameyFrankCLMMedium.eot')
+      format('embedded-opentype'),
+    url('./assets/fonts/TaameyFrankCLMMedium/TaameyFrankCLMMedium.woff2')
+      format('woff2'),
+    url('./assets/fonts/TaameyFrankCLMMedium/TaameyFrankCLMMedium.woff')
+      format('woff'),
+    url('./assets/fonts/TaameyFrankCLMMedium/TaameyFrankCLMMedium.ttf')
+      format('truetype'),
+    url('./assets/fonts/TaameyFrankCLMMedium/TaameyFrankCLMMedium.svg#TaameyFrankCLMMedium')
+      format('svg');
+}
+
+// @font-face {
+//   font-family: 'AssistantRegular';
+//   src: url('./assets/fonts/AssistantRegular/AssistantRegular.eot');
+//   src: url('./assets/fonts/AssistantRegular/AssistantRegular.eot') format('embedded-opentype'),
+//     url('./assets/fonts/AssistantRegular/AssistantRegular.woff2') format('woff2'),
+//     url('./assets/fonts/AssistantRegular/AssistantRegular.woff') format('woff'),
+//     url('./assets/fonts/AssistantRegular/AssistantRegular.ttf') format('truetype'),
+//     url('./assets/fonts/AssistantRegular/AssistantRegular.svg#AssistantRegular') format('svg');
+// }
+
+@font-face {
+  font-family: 'Marco';
+  src: url('./assets/fonts/Marco/Marco.eot');
+  src: url('./assets/fonts/Marco/Marco.eot') format('embedded-opentype'),
+    url('./assets/fonts/Marco/Marco.woff2') format('woff2'),
+    url('./assets/fonts/Marco/Marco.woff') format('woff'),
+    url('./assets/fonts/Marco/Marco.ttf') format('truetype'),
+    url('./assets/fonts/Marco/Marco.svg#Marco') format('svg');
+}
+
+@font-face {
+  // font-family: 'MarcoBold';
+  font-family: 'Marco';
+  font-weight: bold;
+  src: url('./assets/fonts/Marco/MarcoBold.eot');
+  src: url('./assets/fonts/Marco/MarcoBold.eot') format('embedded-opentype'),
+    url('./assets/fonts/Marco/MarcoBold.woff2') format('woff2'),
+    url('./assets/fonts/Marco/MarcoBold.woff') format('woff'),
+    url('./assets/fonts/Marco/MarcoBold.ttf') format('truetype'),
+    url('./assets/fonts/Marco/MarcoBold.svg#MarcoBold') format('svg');
+}

@@ -1,0 +1,182 @@
+@import '../../util/css-variables.scss';
+
+.tikun-reading-page-container {
+  // .tora-page {
+  $text-shadow-offset: 2px;
+  $text-shadow-negative-offset: -$text-shadow-offset;
+  $text-shadow-blur: 6px;
+  .line {
+    position: relative;
+    // margin-right: 13vw;
+    // font-size: 4.5vw;
+    line-height: 1.5;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+
+    & .aliya-sign {
+      position: absolute;
+      left: 100%;
+      width: 12.8%;
+      text-align: left;
+      padding-left: 1vw;
+      margin-left: 1.5vw;
+      font-size: 0.7em;
+      vertical-align: middle;
+      top: 50%;
+      transform: translateY(-50%);
+      line-height: 1.1;
+
+      &.arrow {
+        border-left: 2px solid black;
+        border-radius: 0.15em;
+        &::before {
+          content: '';
+          position: absolute;
+          top: calc(50% - 0.1em);
+          right: calc(100% + 2px);
+          width: 0;
+          border-right: 0.1em solid black;
+          border-top: 0.1em solid transparent;
+          border-bottom: 0.1em solid transparent;
+        }
+      }
+    }
+
+    &.scroll-view-markered-line-aliya {
+      background-color: #ffd75b;
+    }
+
+    &.scroll-view-markered-line-parasha {
+      background-color: #ffaa31;
+    }
+
+    &.is-scroll-view-bookmark-line {
+      background-color: #ffeb14;
+    }
+
+    &.text-glow,
+    & .text-glow {
+      --text-shadow-color: #ffeb14;
+      text-shadow: $text-shadow-offset 0px $text-shadow-blur
+          var(--text-shadow-color),
+        0px $text-shadow-offset $text-shadow-blur var(--text-shadow-color),
+        0px $text-shadow-negative-offset $text-shadow-blur
+          var(--text-shadow-color),
+        $text-shadow-negative-offset 0 $text-shadow-blur
+          var(--text-shadow-color);
+      animation: text-shadow-fade-out 5s 3s forwards;
+    }
+
+    & .choose-bookmark-note-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: absolute;
+      top: 0.1em;
+      right: -0.1em;
+      left: -0.1em;
+      bottom: 0.1em;
+      background-color: #55555588;
+      border-radius: 0.3em;
+      cursor: pointer;
+      & .bookmark-line-btn {
+        height: 80% !important;
+        font-size: 0.7em !important;
+        word-spacing: 0.1em;
+        // font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
+        //   'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
+        //   'Helvetica Neue', sans-serif !important;
+      }
+    }
+
+    &.is-bookmark-mode {
+      color: #555;
+    }
+
+    &.marker {
+      transform: scale(1.05, 1.05);
+      transition: transform 0.3s;
+      font-weight: bold;
+    }
+  }
+
+  &.style-dark .line {
+    &.scroll-view-markered-line-aliya {
+      background-color: #0054a8;
+    }
+
+    &.scroll-view-markered-line-parasha {
+      background-color: #0056d7;
+    }
+
+    &.is-scroll-view-bookmark-line {
+      background-color: #1ab9e9;
+    }
+
+    &.text-glow,
+    & .text-glow {
+      --text-shadow-color: #007da2;
+      text-shadow: $text-shadow-offset 0 $text-shadow-blur
+          var(--text-shadow-color),
+        0 $text-shadow-offset $text-shadow-blur var(--text-shadow-color),
+        0 $text-shadow-negative-offset $text-shadow-blur
+          var(--text-shadow-color),
+        $text-shadow-negative-offset 0 $text-shadow-blur
+          var(--text-shadow-color);
+      animation: text-shadow-fade-out 5s 3s forwards;
+    }
+
+    & .arrow {
+      border-color: $dark-style-color;
+      &::before {
+        border-right-color: $dark-style-color;
+      }
+    }
+  }
+
+  &.style-regular .line {
+    &.scroll-view-markered-line-aliya {
+      background-color: #0054a844;
+    }
+
+    &.scroll-view-markered-line-parasha {
+      background-color: #0056d788;
+    }
+
+    &.is-scroll-view-bookmark-line {
+      background-color: #1ab9e955;
+    }
+  }
+
+  .open-parasha {
+    justify-content: start;
+  }
+
+  .space-line {
+    margin-bottom: 2em;
+  }
+
+  #two-columns-container .line {
+    & .aliya-sign {
+      padding: 0.2em 0 0.2em 0.5vw;
+      margin-left: 0.7vw;
+      width: 5vw;
+    }
+  }
+
+  @keyframes text-shadow-fade-out {
+    to {
+      $text-shadow-offset: 0px;
+      $text-shadow-negative-offset: -$text-shadow-offset;
+      $text-shadow-blur: 2px;
+      text-shadow: $text-shadow-offset 0 $text-shadow-blur
+          var(--text-shadow-color),
+        0 $text-shadow-offset $text-shadow-blur var(--text-shadow-color),
+        0 $text-shadow-negative-offset $text-shadow-blur
+          var(--text-shadow-color),
+        $text-shadow-negative-offset 0 $text-shadow-blur
+          var(--text-shadow-color);
+    }
+  }
+}

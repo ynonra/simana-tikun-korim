@@ -1,0 +1,9 @@
+.learn-teamim-page {
+  display: flex;
+  flex-direction: column;
+  -ms-flex-direction: column;
+  justify-content: space-between;
+  .audio-player {
+    background-color: #f2f2f2;
+  }
+}

@@ -1,0 +1,8 @@
+.dialog-root {
+  .MuiDialogContent-root {
+    padding-top: 0;
+  }
+  .MuiDialog-paperScrollPaper {
+    max-height: 98vh !important;
+  }
+}

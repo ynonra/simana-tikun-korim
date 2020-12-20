@@ -1,0 +1,19 @@
+.line {
+  .big-letter {
+    font-size: 120%;
+  }
+
+  .small-letter {
+    font-size: 80%;
+    vertical-align: 13%;
+  }
+
+  .word-padding:not(:last-child) {
+    padding-left: 0.29em;
+  }
+
+  .inverted-nun {
+    padding-left: 4em;
+    padding-right: 4em;
+  }
+}

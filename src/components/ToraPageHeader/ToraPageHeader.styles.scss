@@ -1,0 +1,77 @@
+@import '../../util/css-variables.scss';
+
+.tikun-reading-page-container {
+  &.style-dark .tora-page-header {
+    background-color: $dark-style-background;
+    color: $dark-style-color;
+
+    .settings-icon {
+      color: #0056d7 !important;
+      background-color: #599bff66 !important;
+      &.tutorial-model-mode {
+        background-color: #cbd1fe !important;
+      }
+    }
+  }
+  &.style-tora-paper .tora-page-header {
+    background-color: $klaf-style-background;
+    color: $klaf-style-color;
+    .settings-icon {
+      color: #f77500 !important;
+      background-color: #ffe488 !important;
+      &.tutorial-model-mode {
+        background-color: #cbd1fe !important;
+      }
+    }
+  }
+  &.style-regular .tora-page-header {
+    background-color: $regular-style-background;
+    color: $regular-style-color;
+    .settings-icon {
+      color: #0056d7 !important;
+      background-color: #599bff55 !important;
+      &.tutorial-model-mode {
+        background-color: #cbd1fe !important;
+      }
+    }
+  }
+
+  .settings-icon {
+    &.tutorial-model-mode {
+      transition: all 0.5s;
+      transform: scale(1.1);
+      z-index: 1100;
+    }
+  }
+
+  .tora-page-header {
+    position: relative;
+    text-align: center;
+    padding-top: 1em;
+    padding-bottom: 0.6em;
+    font-size: 2.5vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .titles {
+      display: flex;
+      justify-content: space-between;
+      width: 81%;
+      padding: 0 10%;
+      margin-left: 8vw;
+      h1 {
+        margin-top: 0;
+      }
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    .menu-button-container {
+      width: 19vw;
+      padding-right: 5px;
+    }
+  }
+}

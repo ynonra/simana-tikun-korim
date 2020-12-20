@@ -1,0 +1,27 @@
+@import '../../util/css-variables.scss';
+
+.tikun-reading-page-container {
+  width: 100vw;
+  overflow: hidden;
+  &.style-dark {
+    background-color: $dark-style-background;
+    color: $dark-style-color;
+  }
+  &.style-tora-paper {
+    background-color: $klaf-style-background;
+    color: $klaf-style-color;
+  }
+  &.style-regular {
+    background-color: $regular-style-background;
+    color: $regular-style-color;
+  }
+
+  .screen-lock-landscape-btn {
+    position: fixed;
+    background-color: #ffffffaa;
+    // opacity: 0.8;
+    margin: 3vw;
+    bottom: 0;
+    right: 0;
+  }
+}

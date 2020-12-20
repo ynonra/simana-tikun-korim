@@ -1,0 +1,60 @@
+@import '../../util/css-variables.scss';
+
+.learn-teamim-home-page {
+  .MuiTabs-root {
+    background-color: #fff;
+    .Mui-selected {
+      font-weight: bold !important;
+      &.tab-jerusalemi {
+        color: $jerusalemi-color !important;
+      }
+      &.tab-ashkenazi {
+        color: $ashkenazi-color !important;
+      }
+      &.tab-marokai {
+        color: $marokai-color !important;
+      }
+    }
+    .MuiTabs-indicator {
+      background-color: #666 !important;
+    }
+  }
+
+  .teamim-type-section {
+    margin-top: 1.6em;
+
+    &:first-of-type {
+      margin-top: 2em;
+    }
+    .nav-buttons-container {
+      padding-top: 0;
+      padding-bottom: 0;
+
+      &.jerusalemi .border-container {
+        border-color: $jerusalemi-color !important;
+      }
+
+      &.ashkenazi .border-container {
+        border-color: $ashkenazi-color !important;
+      }
+
+      &.marokai .border-container {
+        border-color: $marokai-color !important;
+      }
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 0.2em;
+      margin-top: 0;
+    }
+  }
+}
+.audio-player {
+  outline: none;
+  direction: ltr !important;
+  height: 5.3em;
+  * {
+    outline: none;
+  }
+}

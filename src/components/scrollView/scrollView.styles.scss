@@ -1,0 +1,57 @@
+@import '../../util/css-variables.scss';
+
+.scroll-view-fixed-container {
+  position: fixed;
+  left: 0.5vw;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  user-select: none;
+  width: 7vw;
+  animation: fadeIn 0.2s;
+
+  .scroll-view {
+    position: relative;
+    width: 100%;
+    font-size: 0.25vw;
+    font-weight: bold;
+    letter-spacing: 0;
+    * {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
+        'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
+        'Helvetica Neue', sans-serif !important;
+    }
+
+    &.style-regular #scroll-position {
+      color: black;
+      background-color: #599bff55;
+    }
+
+    &.style-dark {
+      color: #ddd;
+      & #scroll-position {
+        background-color: #ffffff88;
+      }
+    }
+
+    &.style-tora-paper #scroll-position {
+      background-color: #fb8a0055;
+    }
+
+    & * {
+      line-height: 1.6 !important;
+    }
+    & .word-padding:not(:last-child) {
+      padding-left: 0.1vw;
+    }
+
+    & #scroll-position {
+      position: absolute;
+      top: 0;
+      // height: 17%;
+      width: 100%;
+      background-color: #86deff33;
+      z-index: 11;
+    }
+  }
+}

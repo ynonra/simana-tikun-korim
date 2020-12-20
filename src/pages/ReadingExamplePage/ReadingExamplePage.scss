@@ -1,0 +1,42 @@
+@import '../../util//css-variables.scss';
+
+.reading-example-page {
+  .audio-player {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    left: 0;
+
+    &.style-dark {
+      // background-color: #001c46;
+      background-color: #031e56;
+      & .rhap_time {
+        color: #aaa;
+      }
+    }
+
+    &.style-tora-paper {
+      background-color: #fff899;
+      .rhap_download-progress,
+      .rhap_volume-bar {
+        background-color: #f2b813;
+      }
+      .rhap_progress-filled,
+      .rhap_progress-indicator,
+      .rhap_volume-indicator {
+        background-color: #444;
+      }
+      svg {
+        color: #444;
+      }
+    }
+
+    &.style-regular {
+      background-color: #f2f2f2;
+    }
+  }
+
+  .tora-page {
+    height: calc(100vh - 5.3em - 2.7em - 0.2em);
+  }
+}

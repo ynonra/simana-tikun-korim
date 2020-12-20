@@ -1,0 +1,78 @@
+@import '../../util//css-variables.scss';
+
+.homepage {
+  position: relative;
+  background-color: unset !important;
+
+  & > .page {
+    display: flex;
+    flex-direction: column;
+    -moz-flex-direction: column;
+    -ms-flex-direction: column;
+    justify-content: space-between;
+
+    .logo-container {
+      padding: 40px;
+      margin: auto;
+      background: radial-gradient(#ffffff 50%, #ffffff00);
+      .logo {
+        position: relative;
+        width: 170px;
+        margin: auto;
+      }
+    }
+
+    &::after {
+      content: '';
+      background: bottom url('../../images/רקע\ תיקון\ קוראים-04.png');
+      background-size: cover;
+      // opacity: 0.2;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      position: absolute;
+      z-index: -10;
+    }
+    // .logo-container {
+    //   margin-top: 1.5rem;
+    //   margin-bottom: 3rem;
+    //   position: relative;
+    //   .logo-img {
+    //     width: 80vmin;
+    //     height: 64vmin;
+    //     position: absolute;
+    //     left: 50%;
+    //     transform: translateX(-50%);
+    //     top: 0;
+    //     z-index: -1;
+    //   }
+    //   .title-container {
+    //     width: 43vmin;
+    //     margin: auto;
+    //     margin-top: 19.2vmin;
+    //     font-family: $tora-font-family;
+    //     font-size: 8vmin;
+    //     line-height: 1.15;
+    //     & .title-word {
+    //       margin: 0;
+    //       background-image: linear-gradient(
+    //         to right,
+    //         rgba(0, 0, 0, 0) 100%,
+    //         #000 100%
+    //       );
+    //       color: transparent;
+    //       -webkit-background-clip: text;
+    //       background-clip: text;
+
+    //       &#title-word-1 {
+    //         text-align: right;
+    //       }
+    //       &#title-word-2 {
+    //         text-align: left;
+    //       }
+    //     }
+    //   }
+    // }
+  }
+}

@@ -1,0 +1,75 @@
+@import '../../util//css-variables.scss';
+
+$gradient-border-width: 4px;
+$gradient-border-inner-radius: 15px;
+
+.border-container {
+  position: relative;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #000;
+  background-clip: padding-box;
+  border: $button-border-width solid #0071bc;
+  &.gradient-border {
+    border: $gradient-border-width solid transparent;
+  }
+  border-radius: $gradient-border-inner-radius + $gradient-border-width;
+  z-index: 1;
+  margin: $button-margin;
+  width: fit-content;
+
+  &.gradient-border::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
+    margin: -$gradient-border-width;
+    border-radius: inherit;
+    background-color: #0071bc;
+    background-image: linear-gradient(
+      to right,
+      $light-blue-gradient,
+      $dark-blue-gradient
+    );
+  }
+
+  .nav-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    text-align: center;
+    background: #fff !important;
+    font-weight: bold;
+    font-size: 1.1em;
+    width: $button-width;
+    border-radius: $gradient-border-inner-radius;
+    color: #000;
+    cursor: pointer;
+    height: 100%;
+
+    .btn-title {
+      padding: 0.5em;
+    }
+
+    &.small {
+      width: 5.5rem;
+    }
+
+    &.scale-animation {
+      animation: scale-animation 0.4s cubic-bezier(0.3, 1.2, 0.7, 1.1) forwards;
+      transform: scale(0, 0);
+    }
+
+    @keyframes scale-animation {
+      to {
+        transform: scale(1, 1);
+      }
+    }
+  }
+}

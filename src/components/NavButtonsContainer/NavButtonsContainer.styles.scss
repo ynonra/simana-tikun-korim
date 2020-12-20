@@ -1,0 +1,51 @@
+@import '../../util//css-variables.scss';
+
+$total-btn-width: $button-width + ($button-margin + $button-border-width) * 2 +
+  4px; //(4px for secure)
+
+.nav-buttons-container {
+  padding: 1.5rem 0;
+
+  ///////////////
+  // CSS  GRID //
+  ///////////////
+
+  display: grid;
+
+  grid-template-columns: 50% 50%;
+  justify-items: center;
+  align-items: stretch;
+  margin: 0 auto;
+
+  @media screen and (max-width: $total-btn-width * 2 - 1px) {
+    grid-template-columns: 100%;
+  }
+
+  ///////////////
+  // FLEX_BOX //
+  ///////////////
+
+  &.display-flex {
+    display: flex;
+
+    flex-direction: row;
+    -ms-flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    width: $total-btn-width * 2;
+    margin: 0 auto;
+
+    @media screen and (max-width: $total-btn-width * 2 - 1px) {
+      width: $total-btn-width * 1;
+    }
+
+    &.direction-column {
+      flex-direction: column;
+      -ms-flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: auto;
+    }
+  }
+}
