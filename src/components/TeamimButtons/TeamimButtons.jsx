@@ -31,7 +31,10 @@ const TeamimButtons = ({ teamimType, taam, clickTaamHandler }) => {
       : teamimType === 'jerusalemi'
       ? jerusalemiDic
       : null)[bookType];
-    setTeamimTypeDic(teamimTypeDic);
+    const filterTeamimForParser = teamimTypeDic.filter(
+      (item) => item.forTeamimButtons !== false
+    );
+    setTeamimTypeDic(filterTeamimForParser);
   }, [bookType, teamimType]);
 
   function calcBtnVariant(currentTaamDic, btnTaamDic) {

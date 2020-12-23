@@ -23,18 +23,33 @@ const Word = ({ str, className, setTaamMenuData }) => {
     const nextWords = getSiblingWords(wordElement, 'next');
     const previousWords = getSiblingWords(wordElement, 'prev');
     const taamData = findTaamInWord(wordStr, previousWords, nextWords);
-
-    const { nextTaamWordsCount, prevTaamWordsCount } = taamData || {};
-    const allWordsString = [
-      ...previousWords.slice(0, prevTaamWordsCount || 0).reverse(),
+    const { sfaradiSentenceRange, ashkenaziSentenceRange } = taamData || {};
+    const sfaradiSentence = calcSentence(
+      previousWords,
       wordStr,
-      ...nextWords.slice(0, nextTaamWordsCount || 0),
-    ].join(' ');
-    return { taamData, wordStr: allWordsString };
+      nextWords,
+      sfaradiSentenceRange
+    );
+    const ashkenaziSentence = calcSentence(
+      previousWords,
+      wordStr,
+      nextWords,
+      ashkenaziSentenceRange
+    );
+    return { taamData, sfaradiSentence, ashkenaziSentence };
   }
 
-  function showTaamMenu(taamData, wordStr) {
-    setTaamMenuData({ taamData: taamData, wordStr: wordStr });
+  function calcSentence(prevWords, wordStr, nextWords, sentenceRange) {
+    if (!sentenceRange) return wordStr;
+    return [
+      ...prevWords.slice(0, sentenceRange.prevTaamWordsCount || 0).reverse(),
+      wordStr,
+      ...nextWords.slice(0, sentenceRange.nextTaamWordsCount || 0),
+    ].join(' ');
+  }
+
+  function showTaamMenu({ taamData, sfaradiSentence, ashkenaziSentence }) {
+    setTaamMenuData({ taamData, sfaradiSentence, ashkenaziSentence });
   }
 
   function getSiblingWords(currentWordElem, siblingDirection) {
@@ -82,8 +97,10 @@ const Word = ({ str, className, setTaamMenuData }) => {
   function onMouseRightClickHandler(ev) {
     ev.preventDefault();
 
-    const { taamData, wordStr } = calcTaamName(ev.target);
-    showTaamMenu(taamData, wordStr);
+    const { taamData, sfaradiSentence, ashkenaziSentence } = calcTaamName(
+      ev.target
+    );
+    showTaamMenu({ taamData, sfaradiSentence, ashkenaziSentence });
   }
 
   return (

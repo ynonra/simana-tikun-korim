@@ -13,7 +13,6 @@ const TaamInWordMenu = ({ open, onClose, data, teamimType, setTeamimType }) => {
   const [audio, setAudio] = useState(new Audio());
   const params = useParams();
   const bookType = params.bookType || 'humash';
-
   const sfaradi = data && data.taamData && data.taamData.sfaradi;
   const ashkenazi = data && data.taamData && data.taamData.ashkenazi;
 
@@ -92,7 +91,12 @@ const TaamInWordMenu = ({ open, onClose, data, teamimType, setTeamimType }) => {
   return (
     <Dialog open={open} onClose={onClose}>
       <div className="taam-in-word-menu">
-        <div className="selected-word noselect">{data && data.wordStr}</div>
+        <div className="selected-word noselect">
+          {data &&
+            (teamimType === 'ashkenazi'
+              ? data.ashkenaziSentence
+              : data.sfaradiSentence)}
+        </div>
         {sfaradi && sfaradi.en !== 'kadma' ? ( // אין מנגינה לקדמא בנוסח ירושלמי
           <TaamRow
             readingTypeEn="jerusalemi"

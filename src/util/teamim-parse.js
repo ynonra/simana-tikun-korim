@@ -34,7 +34,7 @@ export function findTaamInWord(currentWord, prevWords, nextWords) {
       nextWords,
       prevWords
     );
-    const { continuationTaam, nextTaamWordsCount, prevTaamWordsCount } =
+    const { continuationTaam, sfaradiSentenceRange, ashkenaziSentenceRange } =
       isContinuationFound || {};
     // console.log(isContinuationFound);
     taamData = {
@@ -43,8 +43,8 @@ export function findTaamInWord(currentWord, prevWords, nextWords) {
         sfaradiQuery: continuationTaam || null,
         ashkenaziQuery: '֖',
       }),
-      nextTaamWordsCount,
-      prevTaamWordsCount,
+      sfaradiSentenceRange,
+      ashkenaziSentenceRange,
     };
   } else if (teamimArr.includes('֥')) {
     // מאריך
@@ -56,8 +56,8 @@ export function findTaamInWord(currentWord, prevWords, nextWords) {
     if (!isContinuationFound) return;
     const {
       continuationTaam,
-      nextTaamWordsCount,
-      prevTaamWordsCount,
+      sfaradiSentenceRange,
+      ashkenaziSentenceRange,
     } = isContinuationFound;
     // console.log(isContinuationFound);
     taamData = {
@@ -66,8 +66,8 @@ export function findTaamInWord(currentWord, prevWords, nextWords) {
         sfaradiQuery: continuationTaam,
         ashkenaziQuery: '֖',
       }),
-      nextTaamWordsCount,
-      prevTaamWordsCount,
+      sfaradiSentenceRange,
+      ashkenaziSentenceRange,
     };
   } else if (teamimArr.includes('֣')) {
     // שופר הולך
@@ -99,10 +99,15 @@ export function findTaamInWord(currentWord, prevWords, nextWords) {
         sfaradiQuery: taamStr,
         ashkenaziQuery: taamStr,
       }),
-      prevTaamWordsCount,
+      sfaradiSentenceRange: {
+        prevTaamWordsCount,
+      },
+      ashkenaziSentenceRange: {},
     };
   } else if (checkIfZarkaSegolta(teamimArr)) {
     return zarkaSegolataHandler(teamimArr, prevWords, nextWords);
+  } else if (findShofarMehupahHandler(teamimArr, nextWords)) {
+    taamData = findShofarMehupahHandler(teamimArr, nextWords);
   } else {
     // לאחר שנשללה כל אפשרות של 2 טעמים במילה וגם טעמים מיוחדים
     return getFirstTaamData(teamimArr);
@@ -129,12 +134,17 @@ function azlaGerishHandler(teamimArr, prevWords, nextWords) {
   for (let i = 0; i < allWordsTeamim.length; i++) {
     const wordTeamim = allWordsTeamim[i];
     if (!wordTeamim) continue;
-    if (wordTeamim.includes(oppositeTaam))
-      return {
-        ...azlaGerishData,
+    if (wordTeamim.includes(oppositeTaam)) {
+      const sentenceRange = {
         nextTaamWordsCount: isAzla ? i : 0,
         prevTaamWordsCount: !isAzla ? i : 0,
       };
+      return {
+        ...azlaGerishData,
+        sfaradiSentenceRange: sentenceRange,
+        ashkenaziSentenceRange: sentenceRange,
+      };
+    }
   }
 }
 
@@ -146,6 +156,22 @@ function treyKadmimHandler(teamimArr) {
       sfaradiQuery: 'trey-kadmin',
       ashkenaziQuery: 'pashata',
     });
+}
+
+function findShofarMehupahHandler(teamimArr, nextWords) {
+  if (!teamimArr.includes('֤')) return;
+  const nextWordsCountUntilPashta =
+    nextWords && nextWords.findIndex((word) => word.includes('֙')) + 1;
+  const taamData = {
+    ...findTaamData({
+      queryLang: 'heb',
+      sfaradiQuery: '֤',
+      ashkenaziQuery: '֤',
+    }),
+    sfaradiSentenceRange: {},
+    ashkenaziSentenceRange: { nextTaamWordsCount: nextWordsCountUntilPashta },
+  };
+  return taamData;
 }
 
 function findSofPasukAndAtnahStringHandler(teamimArr, prevWords) {
@@ -175,8 +201,11 @@ function zarkaSegolataHandler(teamimArr, prevWords, nextWords) {
   }
   return {
     ...taamData,
-    prevTaamWordsCount,
-    nextTaamWordsCount,
+    sfaradiSentenceRange: {
+      prevTaamWordsCount,
+      nextTaamWordsCount,
+    },
+    ashkenaziSentenceRange: {},
   };
 }
 
@@ -263,20 +292,34 @@ function findTarhaContinuation(teamimArr, nextWords, prevWords) {
   const prevWordsTeamimArr = [null, ...mapWordsToTeamim(prevWords)];
   const prevTaamWordsCount = countRegularTeamimInWord(prevWordsTeamimArr);
   // console.log(prevTaamWordsCount);
+  let nextWordsUntilTarha;
   for (let i = 0; i < nextWordsTeamimArr.length; i++) {
     const wordTeamimArr = nextWordsTeamimArr[i];
     if (!wordTeamimArr) continue;
+    if (wordTeamimArr.includes('֖')) nextWordsUntilTarha = i;
     if (wordTeamimArr.includes('֑')) {
       return {
         continuationTaam: '֑',
-        nextTaamWordsCount: i,
-        prevTaamWordsCount,
+        sfaradiSentenceRange: {
+          nextTaamWordsCount: i,
+          prevTaamWordsCount,
+        },
+        ashkenaziSentenceRange: {
+          prevTaamWordsCount,
+          nextTaamWordsCount: nextWordsUntilTarha,
+        },
       };
     } else if (wordTeamimArr.includes('׃')) {
       return {
         continuationTaam: '׃',
-        nextTaamWordsCount: i,
-        prevTaamWordsCount,
+        sfaradiSentenceRange: {
+          nextTaamWordsCount: i,
+          prevTaamWordsCount,
+        },
+        ashkenaziSentenceRange: {
+          prevTaamWordsCount,
+          nextTaamWordsCount: nextWordsUntilTarha,
+        },
       };
     } else if (checkIncludesNotRegularTeamim(wordTeamimArr)) return;
   }
@@ -322,7 +365,7 @@ function findTaamData({ queryLang, sfaradiQuery, ashkenaziQuery }) {
 
 function findTaamDataInSpecificReadingType(queryLang, query) {
   return (taamData) =>
-    queryLang === 'heb'
+    taamData.forTeamimParser !== false && queryLang === 'heb'
       ? taamData[queryLang] && taamData[queryLang].match(query)
       : taamData[queryLang] === query;
 }
