@@ -73,8 +73,15 @@ const Word = ({ str, className, setTaamMenuData }) => {
   }
 
   function onLongTouch(onTouchStartEvent, callback) {
-    const { taamData, wordStr } = calcTaamName(onTouchStartEvent.target);
-    setTouchTimeout(setTimeout(() => callback(taamData, wordStr), 600));
+    const { taamData, sfaradiSentence, ashkenaziSentence } = calcTaamName(
+      onTouchStartEvent.target
+    );
+    setTouchTimeout(
+      setTimeout(
+        () => callback({ taamData, sfaradiSentence, ashkenaziSentence }),
+        600
+      )
+    );
   }
 
   const touchEndHandlers = {

@@ -91,7 +91,6 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  // setNikudMode: (nikudMode) => dispatch(setNikudMode(nikudMode)),
   setSideNavOpen: (isOpen) => dispatch(setSideNavOpen(isOpen)),
   setPageNum: (pageNum) => dispatch(setPageNumber(pageNum)),
 });

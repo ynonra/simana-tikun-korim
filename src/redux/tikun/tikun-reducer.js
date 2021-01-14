@@ -3,28 +3,24 @@ import { validatePageNumber } from './utils';
 
 const INITIAL_STATE = {
   usageMode: 'used',
-  // nikudMode: true,
   pageNumber: undefined,
   styleMode: 'style-regular',
   isBookmarkLineSelectionMode: false,
   selectedBookmarkLineNum: undefined,
   sideNavOpen: false,
   teamimType: 'jerusalemi',
-  // toraPageScreenOrientation: 'landscape',
   toraPageColumnsCount: 1,
   isToraPageReady: false,
   wordTaamMenuData: undefined,
   notesData: null,
+  lang: /^he/.test(navigator.language) ? 'he' : 'en',
+  inIsrael: /^he/.test(navigator.language),
 };
 
 const tikunReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    // case tikunActionTypes.TOGGLE_NIKUD_MODE:
-    //   return { ...state, nikudMode: !state.nikudMode };
     case tikunActionTypes.SET_USAGE_MODE:
       return { ...state, usageMode: action.payload };
-    // case tikunActionTypes.SET_NIKUD_MODE:
-    //   return { ...state, nikudMode: action.payload };
     case tikunActionTypes.SET_PAGE_NUMBER:
       return { ...state, pageNumber: action.payload };
     case tikunActionTypes.SET_NEXT_PAGE:
@@ -41,18 +37,8 @@ const tikunReducer = (state = INITIAL_STATE, action) => {
       return { ...state, selectedBookmarkLineNum: action.payload };
     case tikunActionTypes.SET_SIDE_NAV_OPEN:
       return { ...state, sideNavOpen: action.payload };
-    // case tikunActionTypes.TOGGLE_SIDE_NAV:
-    //   return { ...state, sideNavOpen: !state.sideNavOpen };
     case tikunActionTypes.SET_TEAMIM_TYPE:
       return { ...state, teamimType: action.payload };
-    // case tikunActionTypes.TOGGLE_SCREEN_ORIENTATION:
-    //   return {
-    //     ...state,
-    //     toraPageScreenOrientation:
-    //       state.toraPageScreenOrientation === 'landscape'
-    //         ? 'portrait'
-    //         : 'landscape',
-    //   };
     case tikunActionTypes.TOGGLE_TORA_PAGE_COLUMNS_COUNT:
       return {
         ...state,
@@ -69,6 +55,10 @@ const tikunReducer = (state = INITIAL_STATE, action) => {
       return { ...state, wordTaamMenuData: action.payload };
     case tikunActionTypes.SET_NOTES_DATA:
       return { ...state, notesData: action.payload };
+    case tikunActionTypes.SET_LANGUAGE:
+      return { ...state, lang: action.payload };
+    case tikunActionTypes.TOGGLE_IN_ISRAEL:
+      return { ...state, inIsrael: !state.inIsrael };
     default:
       return state;
   }

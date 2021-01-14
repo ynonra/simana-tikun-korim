@@ -10,6 +10,7 @@ const NavButtonsContainer = ({
   inverted,
   className,
   gradientBorder,
+  buttonStyle,
 }) => {
   let btnIndex = 0;
   return (
@@ -17,7 +18,7 @@ const NavButtonsContainer = ({
       {buttonsData.map((buttonData) => (
         <NavButton
           scaleAnimation={withScaleAnimation ? { delay: ++btnIndex } : false}
-          style={buttonData.style}
+          style={{ ...buttonStyle, ...buttonData.style }}
           key={Math.random()}
           url={buttonData.url}
           title={buttonData.title}

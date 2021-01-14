@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Route, useRouteMatch } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { selectLang } from '../../redux/tikun/tikun.selectors';
+import { createStructuredSelector } from 'reselect';
 
 import CustomAnimatedSwitch from '../../components/CustomAnimatedSwitch/CustomAnimatedSwitch.component';
 import AppBar from '../../components/AppBar/AppBar.component';
@@ -17,9 +20,10 @@ import { get, set } from 'idb-keyval';
 
 import { Delete, Edit } from '@material-ui/icons';
 
+import { bookmarksPageText } from '../../data/lang-dic';
 import './TikunBookmarksPage.styles.scss';
 
-const TikunBookmarksPage = () => {
+const TikunBookmarksPage = ({ lang }) => {
   const [bookmarksData, setBookmarksData] = useState(null);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [isSuccessDeleteNoteOpen, setIsSuccessDeleteNoteOpen] = useState(false);
@@ -47,8 +51,9 @@ const TikunBookmarksPage = () => {
   }
 
   function editBookmarkConfirm(bookmarkIndex, title) {
+    if (!title || !title.trim()) return;
     let newBookmarksData = [...bookmarksData];
-    newBookmarksData[bookmarkIndex].title = title;
+    newBookmarksData[bookmarkIndex].title = title.trim();
     setBookmarksData(newBookmarksData);
     set('bookmarks', newBookmarksData);
     setIsSuccessEditNoteOpen(true);
@@ -60,7 +65,7 @@ const TikunBookmarksPage = () => {
     <CustomAnimatedSwitch>
       <Route exact path={match.path}>
         <div className="bookmarks-page page default-background">
-          <AppBar title="סימניות" />
+          <AppBar title={bookmarksPageText.appBarTitle[lang]} />
           <div className="bookmarks-buttons-container">
             {bookmarksData && bookmarksData.length ? (
               bookmarksData.map((bookmarkData) => {
@@ -99,15 +104,15 @@ const TikunBookmarksPage = () => {
                 );
               })
             ) : (
-              <h2>לא נמצאו סימניות</h2>
+              <h2>{bookmarksPageText.bookmarksNotFound[lang]}</h2>
             )}
           </div>
           <ModalDialog
             withInput
-            title="ערוך שם סימניה"
+            title={bookmarksPageText.editBookmarkDialogTitle[lang]}
             handleClose={() => setIsEditDialogOpen(false)}
             isOpenDialog={isEditDialogOpen}
-            label="שם סימניה"
+            label={bookmarksPageText.editBookmarkDialogLabel[lang]}
             getInitialInputValue={() =>
               bookmarksData &&
               bookmarksData[bookmarkIndexInAction] &&
@@ -118,8 +123,10 @@ const TikunBookmarksPage = () => {
             }}
           />
           <ModalDialog
-            title="מחק סימניה"
-            description="האם ברצונך למחוק את הסימניה?"
+            title={bookmarksPageText.deleteBookmarkDialogTitle[lang]}
+            description={
+              bookmarksPageText.deleteBookmarkDialogDescription[lang]
+            }
             handleClose={() => setIsDeleteDialogOpen(false)}
             isOpenDialog={isDeleteDialogOpen}
             handleConfirm={() => {
@@ -137,7 +144,7 @@ const TikunBookmarksPage = () => {
               onClose={() => setIsSuccessDeleteNoteOpen(false)}
               severity="success"
             >
-              הסימניה נמחקה!
+              {bookmarksPageText.deleteBookmarkSuccessAlert[lang]}
             </Alert>
           </Snackbar>
           <Snackbar
@@ -151,7 +158,7 @@ const TikunBookmarksPage = () => {
               onClose={() => setIsSuccessEditNoteOpen(false)}
               severity="success"
             >
-              שם הסימניה השתנה!
+              {bookmarksPageText.editBookmarkDialogSuccessAlert[lang]}
             </Alert>
           </Snackbar>
           <Footer />
@@ -164,4 +171,8 @@ const TikunBookmarksPage = () => {
   );
 };
 
-export default TikunBookmarksPage;
+const mapStateToProps = createStructuredSelector({
+  lang: selectLang,
+});
+
+export default connect(mapStateToProps)(TikunBookmarksPage);

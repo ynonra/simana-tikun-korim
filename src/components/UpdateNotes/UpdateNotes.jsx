@@ -1,12 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { selectNotesData } from '../../redux/tikun/tikun.selectors';
+import { selectLang, selectNotesData } from '../../redux/tikun/tikun.selectors';
 
 import './UpdateNotes.scss';
 
-const UpdateNotes = ({ noteName, notesData }) => {
-  const noteData = notesData && notesData[`note_${noteName}`];
+const UpdateNotes = ({ noteName, notesData, lang }) => {
+  const noteData = notesData?.[`note_${noteName}`];
 
   const LinkContainer = ({ url, children }) =>
     url ? (
@@ -24,10 +24,10 @@ const UpdateNotes = ({ noteName, notesData }) => {
 
   return noteData ? (
     <LinkContainer url={noteData.url}>
-      <div style={noteData.container && noteData.container.style}>
-        <div style={noteData.textContainer && noteData.textContainer.style}>
-          <span style={noteData.text && noteData.text.style}>
-            {noteData.text && noteData.text.content}
+      <div style={noteData.container?.style}>
+        <div style={noteData.textContainer?.style}>
+          <span style={noteData.text?.style}>
+            {noteData.text?.content[lang]}
           </span>
         </div>
       </div>
@@ -37,6 +37,7 @@ const UpdateNotes = ({ noteName, notesData }) => {
 
 const mapStateToProps = createStructuredSelector({
   notesData: selectNotesData,
+  lang: selectLang,
 });
 
 export default connect(mapStateToProps)(UpdateNotes);

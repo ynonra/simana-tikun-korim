@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useRouteMatch } from 'react-router-dom';
+import { useRouteMatch, useLocation } from 'react-router-dom';
 import { createStructuredSelector } from 'reselect';
 import { connect } from 'react-redux';
 import { Swipeable } from 'react-swipeable';
@@ -8,27 +8,20 @@ import {
   selectIsBookmarkLineSelectionMode,
   selectSelectedBookmarkLineNum,
   selectStyleMode,
-  // selectNikudMode,
   selectPageNumber,
   selectIsToraPageReady,
   selectWordTaamMenuData,
-  // selectUsageMode,
-  // selectToraPageScreenOrientation,
-  // selectToraPageColumnsCount,
+  selectLang,
 } from '../../redux/tikun/tikun.selectors';
 import {
   endSelectBookmarkLineMode,
   setIsToraPageReady,
   setNextPage,
-  // setNikudMode,
   setPageNumber,
   setPrevPage,
   setSideNavOpen,
   setWordTaamMenuData,
-  // toggleSideNavOpen,
   startSelectBookmarkLineMode,
-  // toggleNikudMode,
-  // toggleToraPageScreenOrientation,
 } from '../../redux/tikun/tikun.actions';
 
 import AppBar from '../../components/AppBar/AppBar.component';
@@ -36,7 +29,6 @@ import ToraPageHeader from '../ToraPageHeader/ToraPageHeader.component';
 import ToraPageContent from '../toraPageContent/toraPageContent.component';
 import ScrollView from '../scrollView/scrollView.component';
 import { scrollToTop } from '../ScrollToTop/ScrollToTop.component';
-// import TutorialContainer from '../../components/TutorialContainer/TutorialContainer';
 import { ReactComponent as RightArrow } from '../../assets/icons/right-arrow.svg';
 import TaamInWordMenu from '../TaamInWordMenu/TaamInWordMenu';
 
@@ -72,6 +64,7 @@ import {
 import pagesDic from '../../data/pages-dic';
 
 import './tora-page.styles.scss';
+import { bookmarksPageText, tikunReadingPageText } from '../../data/lang-dic';
 
 const ToraPage = ({
   isParashatHashavua,
@@ -83,10 +76,6 @@ const ToraPage = ({
   selectedBookmarkLineNum,
   startSelectBookmarkLineMode,
   setSideNavOpen,
-  // toggleSideNav,
-  // nikudMode,
-  // toggleNikudMode,
-  // setNikudMode,
   setPageNum,
   setNextPage,
   setPrevPage,
@@ -100,6 +89,7 @@ const ToraPage = ({
   setIsToraPageReady,
   wordTaamMenuData,
   setTaamMenuData,
+  lang,
 }) => {
   // -------------------------- //
   // --- STATES & VARIABLES --- //
@@ -126,10 +116,18 @@ const ToraPage = ({
 
   const match = useRouteMatch();
   const { bookmarkNum } = match.params;
+  const israelQuery = new URLSearchParams(useLocation().search).get('israel');
+  const israelOrAbroad =
+    israelQuery === 'true'
+      ? 'israel'
+      : israelQuery === 'false'
+      ? 'abroad'
+      : undefined;
   const { holiday, specHoliday, holidayHeb } = getHolidaysNames(
     isHoliday,
     bookmarkData,
-    match
+    match,
+    israelQuery
   );
   const parashaObj = getParashaObj(isParashatHashavua, match.params);
 
@@ -230,7 +228,10 @@ const ToraPage = ({
     return !isBookmark
       ? isHoliday
         ? holiday
-          ? holidaysHebEnDic[holiday].subHolidays[specHoliday].page
+          ? israelOrAbroad
+            ? holidaysHebEnDic[holiday].subHolidays[israelOrAbroad][specHoliday]
+                .page
+            : holidaysHebEnDic[holiday].subHolidays[specHoliday].page
           : holidaysHebEnDic[specHoliday].page
         : pagesDic[parashotHebEnDic[parashaEnName]]['aliya_1']
       : undefined;
@@ -418,11 +419,14 @@ const ToraPage = ({
       />
       <ModalDialog
         withInput
-        // title="הוספת סימניה"
         handleClose={handleCloseBookmarkDialog}
         isOpenDialog={isOpenBookmarkDialog}
-        label="שם סימניה"
-        getInitialInputValue={() => parashaHebName || holidayHeb || ''}
+        label={bookmarksPageText.editBookmarkDialogLabel[lang]}
+        getInitialInputValue={() =>
+          lang === 'he'
+            ? parashaHebName || holidayHeb
+            : parashaEnName || holiday || ''
+        }
         handleConfirm={(bookmarkName) => {
           addBookmarkHandler(
             pageNum,
@@ -446,7 +450,7 @@ const ToraPage = ({
           onClose={handleCloseNote}
           severity="info"
         >
-          בחר שורה
+          {tikunReadingPageText.chooseBookmarkLineInfoAlert[lang]}
         </Alert>
       </Snackbar>
       <Snackbar
@@ -460,7 +464,7 @@ const ToraPage = ({
           onClose={handleSuccessNoteClose}
           severity="success"
         >
-          סימניה חדשה נוספה!
+          {tikunReadingPageText.addBookmarkSuccessAlert[lang]}
         </Alert>
       </Snackbar>
       <Snackbar
@@ -474,7 +478,7 @@ const ToraPage = ({
           onClose={handleSuccessSavedExistingBookmarkNoteClose}
           severity="success"
         >
-          הסימניה שונתה בהצלחה!
+          {tikunReadingPageText.editBookmarkDialogSuccessAlert[lang]}
         </Alert>
       </Snackbar>
     </>
@@ -520,25 +524,21 @@ async function saveExistingBookmarkHandler(bookmarkIndex, pageNum, lineNum) {
 
 const mapStateToProps = createStructuredSelector({
   styleMode: selectStyleMode,
-  // screenOrientation: selectToraPageScreenOrientation,
   isBookmarkLineSelectionMode: selectIsBookmarkLineSelectionMode,
   selectedBookmarkLineNum: selectSelectedBookmarkLineNum,
-  // nikudMode: selectNikudMode,
   pageNum: selectPageNumber,
   isToraPageReady: selectIsToraPageReady,
   wordTaamMenuData: selectWordTaamMenuData,
+  lang: selectLang,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   startSelectBookmarkLineMode: () => dispatch(startSelectBookmarkLineMode),
   endSelectBookmarkLineMode: () => dispatch(endSelectBookmarkLineMode),
   setSideNavOpen: (isOpen) => dispatch(setSideNavOpen(isOpen)),
-  // toggleNikudMode: () => dispatch(toggleNikudMode()),
   setPageNum: (pageNum) => dispatch(setPageNumber(pageNum)),
   setNextPage: () => dispatch(setNextPage()),
   setPrevPage: () => dispatch(setPrevPage()),
-  // setNikudMode: (nikudMode) => dispatch(setNikudMode(nikudMode)),
-  // toggleScreenOrientation: () => dispatch(toggleToraPageScreenOrientation()),
   setIsToraPageReady: (isReady) => dispatch(setIsToraPageReady(isReady)),
   setTaamMenuData: (taamMenuData) =>
     dispatch(setWordTaamMenuData(taamMenuData)),

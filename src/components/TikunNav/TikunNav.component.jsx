@@ -8,10 +8,12 @@ import {
   toggleToraPageColumnsCount,
 } from '../../redux/tikun/tikun.actions';
 import {
+  selectLang,
   selectStyleMode,
   selectToraPageColumnsCount,
 } from '../../redux/tikun/tikun.selectors';
 
+import InstructionDialog from '../InstructionDialog/InstructionDialog';
 import { Button, Divider } from '@material-ui/core';
 import {
   Bookmark,
@@ -23,9 +25,9 @@ import {
 } from '@material-ui/icons';
 
 import LogoUrl from '../../assets/icons/logo.svg';
-// import ToraSvg from '../../images/jewish copy.svg';
+
+import { tikunSideNav } from '../../data/lang-dic';
 import './TikunNav.styles.scss';
-import InstructionDialog from '../InstructionDialog/InstructionDialog';
 
 const TikunNav = ({
   clickAliyaNum,
@@ -38,6 +40,7 @@ const TikunNav = ({
   handleClickAddBookmark,
   handleClickSaveBookmark,
   isLearnMode,
+  lang,
 }) => {
   const [instructionOpen, setInstructionOpen] = useState(false);
 
@@ -68,7 +71,9 @@ const TikunNav = ({
           startIcon={<FormatAlignRight />}
           onClick={() => toggleColumnsCount()}
         >
-          {columnsCount === 1 ? 'הצג שתי עמודות' : 'הצג עמודה אחת'}
+          {columnsCount === 1
+            ? tikunSideNav.showTwoCol[lang]
+            : tikunSideNav.showOneCol[lang]}
         </Button>
       ) : null}
       <Button
@@ -78,7 +83,7 @@ const TikunNav = ({
           paletteButtonsContainerRef.current.classList.toggle('hide')
         }
       >
-        שנה עיצוב
+        {tikunSideNav.changeStyle[lang]}
       </Button>
 
       <div
@@ -89,7 +94,7 @@ const TikunNav = ({
           className="nav-button style-button klaf"
           onClick={() => setStyleMode('style-tora-paper')}
         >
-          קלף
+          {tikunSideNav.changeStyle.options.klaf[lang]}
           <div
             className={`border-bottom ${
               styleMode === 'style-tora-paper' ? 'active' : ''
@@ -100,7 +105,7 @@ const TikunNav = ({
           className="nav-button style-button light"
           onClick={() => setStyleMode('style-regular')}
         >
-          בהיר
+          {tikunSideNav.changeStyle.options.light[lang]}
           <div
             className={`border-bottom ${
               styleMode === 'style-regular' ? 'active' : ''
@@ -111,7 +116,7 @@ const TikunNav = ({
           className="nav-button style-button dark"
           onClick={() => setStyleMode('style-dark')}
         >
-          חשוך
+          {tikunSideNav.changeStyle.options.dark[lang]}
           <div
             className={`border-bottom ${
               styleMode === 'style-dark' ? 'active' : ''
@@ -125,7 +130,7 @@ const TikunNav = ({
           startIcon={<Save />}
           onClick={handleClickSaveBookmark}
         >
-          שנה סימניה נוכחית
+          {tikunSideNav.changeCurrentBookmark[lang]}
         </Button>
       ) : !isLearnMode ? (
         <Button
@@ -133,7 +138,7 @@ const TikunNav = ({
           startIcon={<Bookmark />}
           onClick={handleClickAddBookmark}
         >
-          הוסף סימניה
+          {tikunSideNav.addBookmark[lang]}
         </Button>
       ) : null}
       {!isHoliday && !isBookmark && !isLearnMode ? (
@@ -143,9 +148,9 @@ const TikunNav = ({
             startIcon={<LocalLibrary />}
             onClick={() => aliyotButtonsRef.current.classList.toggle('hide')}
           >
-            בחר עליה
+            {tikunSideNav.scrollToAliya[lang]}
           </Button>
-          <nav className="aliyot-buttons hide" ref={aliyotButtonsRef}>
+          <nav className="aliyot-buttons hide rtl" ref={aliyotButtonsRef}>
             {aliyotButtonsHebArr.map((aliyaName) => {
               const aliyaNum =
                 aliyotButtonsHebArr.findIndex((i) => i === aliyaName) + 1;
@@ -168,7 +173,7 @@ const TikunNav = ({
           startIcon={<Description />}
           onClick={onInstructionOpen}
         >
-          הוראות
+          {tikunSideNav.instructions[lang]}
         </Button>
       ) : null}
       <InstructionDialog open={instructionOpen} onClose={onInstructionClose} />
@@ -179,6 +184,7 @@ const TikunNav = ({
 const mapStateToProps = createStructuredSelector({
   styleMode: selectStyleMode,
   columnsCount: selectToraPageColumnsCount,
+  lang: selectLang,
 });
 
 const mapDispatchToProps = (dispatch) => ({

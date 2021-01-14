@@ -1,0 +1,27 @@
+@import '../../util/css-variables.scss';
+
+.language-button-container {
+  #lang-btn {
+    font-family: $global-font-family-en;
+    width: 3em;
+    background-color: #eee;
+
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    direction: ltr;
+    & .MuiButton-startIcon {
+      margin-left: -4px;
+      margin-right: 8px;
+    }
+  }
+}
+
+.lang-menu-item {
+  font-family: $global-font-family-en;
+
+  &.lang-he {
+    font-family: $global-font-family-he;
+    direction: rtl;
+  }
+}

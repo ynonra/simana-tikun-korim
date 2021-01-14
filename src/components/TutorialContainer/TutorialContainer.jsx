@@ -2,7 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { createStructuredSelector } from 'reselect';
 import { connect } from 'react-redux';
 
-import { selectIsToraPageReady } from '../../redux/tikun/tikun.selectors';
+import {
+  selectIsToraPageReady,
+  selectLang,
+} from '../../redux/tikun/tikun.selectors';
 
 import TutorialModal from '../tutorialModal/tutorialModal';
 
@@ -10,9 +13,10 @@ import { isMobile } from 'react-device-detect';
 
 import { disableScrolling, enableScrolling } from '../../util/scrolling';
 
+import { tutorialsText } from '../../data/lang-dic';
 import './TutorialContainer.scss';
 
-const TutorialContainer = ({ isToraPageReady }) => {
+const TutorialContainer = ({ isToraPageReady, lang }) => {
   const [open, setOpen] = useState(true);
   const [currentModalDisplayData, setCurrentModalDisplayData] = useState({
     index: 0,
@@ -29,32 +33,19 @@ const TutorialContainer = ({ isToraPageReady }) => {
 
   const modalsData = [
     {
-      description: {
-        mobile: 'לחץ על הכיתוב כדי להעלים או להראות את הניקוד!',
-        pc: 'הקש  Enter  או לחץ על הכיתוב כדי להעלים / להראות את הניקוד!',
-      },
+      description: tutorialsText.changeNikud.description[lang],
       actionType: 'tap',
     },
     {
-      description: {
-        mobile: 'החלק את המסך ימינה / שמאלה כדי לעבור עמוד!',
-        pc: 'הקש ⇨ / ⇦, או החלק את המסך ימינה / שמאלה כדי לעבור עמוד!',
-      },
+      description: tutorialsText.movePage.description[lang],
       actionType: 'swipe-left-right',
     },
     {
-      description: {
-        mobile: 'לחץ לחיצה ארוכה על המילה ולמד את ניגון הטעם שלה!',
-        pc: 'לחץ על המילה באמצעות הכפתור הימני בעכבר ולמד את ניגון הטעם שלה!',
-      },
+      description: tutorialsText.listenToTaamInWord.description[lang],
       actionType: 'long-press',
     },
     {
-      description: {
-        mobile:
-          'לחץ כאן, או החלק את המסך מצד ימין, וגלה עוד אפשרויות שימושיות!',
-        pc: 'לחץ כאן וגלה עוד אפשרויות שימושיות!',
-      },
+      description: tutorialsText.openSidebarMenu.description[lang],
       actionType: 'swipe-left',
     },
   ];
@@ -79,6 +70,7 @@ const TutorialContainer = ({ isToraPageReady }) => {
 
 const mapStateToProps = createStructuredSelector({
   isToraPageReady: selectIsToraPageReady,
+  lang: selectLang,
 });
 
 export default connect(mapStateToProps)(TutorialContainer);

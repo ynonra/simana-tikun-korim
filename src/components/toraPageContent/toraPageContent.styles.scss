@@ -1,4 +1,12 @@
+@import '../../util/css-variables.scss';
+
 .just-humash-text {
   transition-property: transform, opacity;
   animation: fadeIn 0.2s;
+  .word *,
+  .word,
+  .aliya-sign,
+  .aliya-sign * {
+    font-family: $tora-font-family !important;
+  }
 }

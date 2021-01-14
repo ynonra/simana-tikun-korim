@@ -48,7 +48,7 @@ const ToraPageContent = ({
     <div
       className={`humash-text ${
         pageNum === 78 ? 'is-shirat-hayam-mode' : ''
-      } noselect`}
+      } noselect rtl`}
     >
       {isPageTextReady ? (
         <div

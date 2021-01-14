@@ -1,26 +1,38 @@
 import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
 import { useParams } from 'react-router-dom';
+import { createStructuredSelector } from 'reselect';
+import {
+  selectLang,
+  selectTeamimType,
+} from '../../redux/tikun/tikun.selectors';
+import { setTeamimType } from '../../redux/tikun/tikun.actions';
 
 import { Dialog } from '@material-ui/core';
 
+import { wordTaamMenuText } from '../../data/lang-dic';
 import './TaamInWordMenu.scss';
-import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
-import { selectTeamimType } from '../../redux/tikun/tikun.selectors';
-import { setTeamimType } from '../../redux/tikun/tikun.actions';
 
-const TaamInWordMenu = ({ open, onClose, data, teamimType, setTeamimType }) => {
+const TaamInWordMenu = ({
+  open,
+  onClose,
+  data,
+  teamimType,
+  setTeamimType,
+  lang,
+}) => {
   const [audio, setAudio] = useState(new Audio());
   const params = useParams();
   const bookType = params.bookType || 'humash';
-  const sfaradi = data && data.taamData && data.taamData.sfaradi;
-  const ashkenazi = data && data.taamData && data.taamData.ashkenazi;
+  const sfaradi = data?.taamData?.sfaradi;
+  const ashkenazi = data?.taamData?.ashkenazi;
 
   const audioSrcs = {
-    jerusalemi: getAudioSrc('jerusalemi', sfaradi && sfaradi.en),
-    marokai: getAudioSrc('marokai', sfaradi && sfaradi.en),
-    ashkenazi: getAudioSrc('ashkenazi', ashkenazi && ashkenazi.en),
+    jerusalemi: getAudioSrc('jerusalemi', sfaradi?.en),
+    marokai: getAudioSrc('marokai', sfaradi?.en),
+    ashkenazi: getAudioSrc('ashkenazi', ashkenazi?.en),
   };
+  const cssDirection = lang === 'he' ? 'rtl' : 'ltr';
 
   useEffect(() => {
     if (open) {
@@ -75,15 +87,17 @@ const TaamInWordMenu = ({ open, onClose, data, teamimType, setTeamimType }) => {
 
     return (
       <div
-        className={`taam-row noselect ${
+        className={`taam-row dir-${cssDirection} noselect ${
           readingTypeEn === teamimType ? 'active' : ''
         }`}
         onClick={onClickHandler}
       >
-        <div className={`reading-type-title ${readingTypeEn}`}>
-          {readingTypeHeb}
+        <div
+          className={`reading-type-title dir-${cssDirection} ${readingTypeEn}`}
+        >
+          {wordTaamMenuText[readingTypeEn][lang]}
         </div>
-        <div className="taam-title">{TaamData.heb}</div>
+        <div className="taam-title">{TaamData.he}</div>
       </div>
     );
   };
@@ -129,6 +143,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 const mapStateToProps = createStructuredSelector({
   teamimType: selectTeamimType,
+  lang: selectLang,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(TaamInWordMenu);

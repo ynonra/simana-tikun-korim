@@ -1,0 +1,27 @@
+.spec-holiday-page {
+  position: relative;
+  .nav-buttons-container {
+    margin-top: 1.4em;
+  }
+  .switch-container {
+    position: absolute;
+    top: 3.3em;
+    &.rtl {
+      right: 0.5em;
+    }
+    &.ltr {
+      left: 0.5em;
+    }
+    .MuiFormControlLabel-label {
+      transition: 0.15s;
+      color: #333;
+      user-select: none;
+    }
+    &.checked {
+      .MuiFormControlLabel-label {
+        color: #000;
+        text-shadow: 1px -1px 2px #f6862066;
+      }
+    }
+  }
+}

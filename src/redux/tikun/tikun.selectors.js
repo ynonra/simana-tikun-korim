@@ -66,3 +66,10 @@ export const selectNotesData = createSelector(
   [selectTikun],
   (tikun) => tikun.notesData
 );
+
+export const selectLang = createSelector([selectTikun], (tikun) => tikun.lang);
+
+export const selectInIsrael = createSelector(
+  [selectTikun],
+  (tikun) => tikun.inIsrael
+);

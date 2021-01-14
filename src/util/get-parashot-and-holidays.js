@@ -19,15 +19,15 @@ export default function getParashatHashavuaData() {
 
   function getHolidayHebName(parashaName) {
     if (parashaName.includes('Shmini Atzeret')) {
-      holidayObjParashatHashavua = { en: 'Sukkot', heb: 'שמיני עצרת' };
+      holidayObjParashatHashavua = { en: 'Sukkot', he: 'שמיני עצרת' };
       return 'שמיני עצרת';
     }
     const foundHoliday = Object.entries(
       holidaysHebEnDic
     ).find(([holidayEn, holidayObj]) => parashaName.includes(holidayEn));
     if (foundHoliday) {
-      const [enHoliday, hebHoliday] = [foundHoliday[0], foundHoliday[1].heb];
-      holidayObjParashatHashavua = { en: enHoliday, heb: hebHoliday };
+      const [enHoliday, hebHoliday] = [foundHoliday[0], foundHoliday[1].he];
+      holidayObjParashatHashavua = { en: enHoliday, he: hebHoliday };
       return hebHoliday;
     } else return undefined;
   }
@@ -35,7 +35,7 @@ export default function getParashatHashavuaData() {
   const parshatHashavuaUrl = holidayObjParashatHashavua
     ? `/tikun-korim/holidays/${holidayObjParashatHashavua.en}`
     : '/tikun-korim/parshat-hashavua';
-  return { heb: parashatHashavuaHebrew, url: parshatHashavuaUrl };
+  return { he: parashatHashavuaHebrew, url: parshatHashavuaUrl };
 }
 
 export function getParashaObj(isParashatHashavua, urlParams) {
@@ -78,22 +78,26 @@ export function getParashaObj(isParashatHashavua, urlParams) {
   return parashatHashavuaObj;
 }
 
-export function getHolidaysNames(isHoliday, bookmarkData, match) {
+export function getHolidaysNames(isHoliday, bookmarkData, match, inIsrael) {
   let holiday, specHoliday, holidayHeb;
-  if (isHoliday || (bookmarkData && bookmarkData.specHoliday)) {
-    holiday = match.params.holiday || (bookmarkData && bookmarkData.holiday);
+  const israelOrAbroad =
+    inIsrael === 'true'
+      ? 'israel'
+      : inIsrael === 'false'
+      ? 'abroad'
+      : undefined;
+  if (isHoliday || bookmarkData?.specHoliday) {
+    holiday = match.params.holiday || bookmarkData?.holiday;
     specHoliday =
-      (bookmarkData && bookmarkData.specHoliday) ||
+      bookmarkData?.specHoliday ||
       match.params.specHoliday ||
       match.url.split('/').pop();
     holidayHeb = holiday
-      ? holidaysHebEnDic[holiday || (bookmarkData && bookmarkData.holiday)]
-          .subHolidays[
-          specHoliday || (bookmarkData && bookmarkData.specHoliday)
-        ].heb
-      : holidaysHebEnDic[
-          specHoliday || (bookmarkData && bookmarkData.specHoliday)
-        ].heb;
+      ? holidaysHebEnDic[holiday || bookmarkData?.holiday].subHolidays
+      : holidaysHebEnDic;
+
+    if (israelOrAbroad !== undefined) holidayHeb = holidayHeb[israelOrAbroad];
+    holidayHeb = holidayHeb[specHoliday || bookmarkData?.specHoliday].he;
   }
   return { holiday, specHoliday, holidayHeb };
 }

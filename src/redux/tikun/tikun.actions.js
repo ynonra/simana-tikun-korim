@@ -7,21 +7,7 @@ export const setUsageMode = (usageMode) => {
   };
 };
 
-// export const toggleNikudMode = () => {
-//   return {
-//     type: tikunActionTypes.TOGGLE_NIKUD_MODE,
-//   };
-// };
-
-// export const setNikudMode = (nikudMode) => {
-//   return {
-//     type: tikunActionTypes.SET_NIKUD_MODE,
-//     payload: nikudMode,
-//   };
-// };
-
 export const setPageNumber = (pageNumber) => {
-  // const validPageNumber = validatePageNumber(pageNumber);
   return {
     type: tikunActionTypes.SET_PAGE_NUMBER,
     payload: pageNumber,
@@ -65,18 +51,10 @@ export const setSideNavOpen = (isOpen) => ({
   payload: isOpen,
 });
 
-// export const toggleSideNavOpen = () => ({
-//   type: tikunActionTypes.TOGGLE_SIDE_NAV,
-// });
-
 export const setTeamimType = (teamimType) => ({
   type: tikunActionTypes.SET_TEAMIM_TYPE,
   payload: teamimType,
 });
-
-// export const toggleToraPageScreenOrientation = () => ({
-//   type: tikunActionTypes.TOGGLE_SCREEN_ORIENTATION,
-// });
 
 export const toggleToraPageColumnsCount = () => ({
   type: tikunActionTypes.TOGGLE_TORA_PAGE_COLUMNS_COUNT,
@@ -100,4 +78,13 @@ export const setWordTaamMenuData = (wordTaamMenuData) => ({
 export const setNotesData = (notesData) => ({
   type: tikunActionTypes.SET_NOTES_DATA,
   payload: notesData,
+});
+
+export const setLanguage = (language) => ({
+  type: tikunActionTypes.SET_LANGUAGE,
+  payload: language,
+});
+
+export const toggleInIsrael = () => ({
+  type: tikunActionTypes.TOGGLE_IN_ISRAEL,
 });

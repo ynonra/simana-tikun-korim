@@ -29,15 +29,15 @@ const TikunHomePage = ({ match }) => {
           parashotHebEnDic[parashaEn] || getHolidayHebName(parashaEn) || ''
       )
       .join(' ');
-  } else parashatHashavuaHebrew = holidayObjParashatHashavua.heb;
+  } else parashatHashavuaHebrew = holidayObjParashatHashavua.he;
 
   function getHolidayHebName(parashaName) {
     const foundHoliday = Object.entries(
       holidaysHebEnDic
     ).find(([holidayEn, holidayObj]) => parashaName.includes(holidayEn));
     if (foundHoliday) {
-      const [enHoliday, hebHoliday] = [foundHoliday[0], foundHoliday[1].heb];
-      setHolidayObjParashatHashavua({ en: enHoliday, heb: hebHoliday });
+      const [enHoliday, hebHoliday] = [foundHoliday[0], foundHoliday[1].he];
+      setHolidayObjParashatHashavua({ en: enHoliday, he: hebHoliday });
       return hebHoliday;
     } else return undefined;
   }

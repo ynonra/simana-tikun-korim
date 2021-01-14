@@ -6,11 +6,11 @@ import {
   setNextPage,
   setPrevPage,
   setUsageMode,
-  // toggleNikudMode,
 } from '../../redux/tikun/tikun.actions';
 import {
   selectSideNavOpen,
   selectIsToraPageReady,
+  selectLang,
 } from '../../redux/tikun/tikun.selectors';
 
 import Word from '../word/word.component';
@@ -22,9 +22,10 @@ import { set } from 'idb-keyval';
 import { isMobile } from 'react-device-detect';
 
 import { toggleNikudMode } from '../../util/parse-humash-text';
-
-import './tutorialModal.scss';
 import { enableScrolling } from '../../util/scrolling';
+
+import { tutorialsText } from '../../data/lang-dic';
+import './tutorialModal.scss';
 
 const TutorialModal = ({
   setTutorialsOpen,
@@ -34,20 +35,19 @@ const TutorialModal = ({
   userAction,
   setCurrentModalDisplayData,
   currentModalDisplayData,
-  // toggleNikudMode,
   setNextPage,
   setPrevPage,
   sideNavOpen,
   setUsageMode,
-  // isToraPageReady,
+  lang,
 }) => {
   const modalRef = useRef(null);
   const modalDescriptionRef = useRef(null);
+  const cssDirection = lang === 'he' ? 'rtl' : 'ltr';
 
   useEffect(() => {
     if (!modalRef || !modalRef.current) return;
 
-    // setLongPressModalUIForPc();
     setSwipeLeftModalUI();
 
     modalRef.current.addEventListener('animationend', () => {
@@ -70,9 +70,6 @@ const TutorialModal = ({
           break;
         default:
           break;
-        // case 'long-press':
-        //   setNextPage();
-        //   break;
       }
       setCurrentModalDisplayData({
         index: currentModalDisplayData.index,
@@ -226,7 +223,7 @@ const TutorialModal = ({
         <div className="description noselect" ref={modalDescriptionRef}>
           {description}
         </div>
-        <div className={`user-action ${actionType}`}>
+        <div className={`user-action ${actionType} dir-${cssDirection}`}>
           {actionType === 'long-press' ? (
             <div className="long-press-humash-text noselect">
               <Word str="וְעֵ֧ץ" />
@@ -236,13 +233,13 @@ const TutorialModal = ({
           <div className="finger-action"></div>
         </div>
         <Button
-          className="skip-tutorial-btn"
+          className={`skip-tutorial-btn dir-${cssDirection}`}
           variant="contained"
           color="default"
           size="small"
           onClick={finishTutorialHandler}
         >
-          דלג על ההדרכה
+          {tutorialsText.skipTutorial[lang]}
         </Button>
       </div>
     </Swipeable>
@@ -252,6 +249,7 @@ const TutorialModal = ({
 const mapStateToProps = createStructuredSelector({
   sideNavOpen: selectSideNavOpen,
   isToraPageReady: selectIsToraPageReady,
+  lang: selectLang,
 });
 
 const mapDispatchToProps = (dispatch) => ({

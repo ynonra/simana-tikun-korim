@@ -100,9 +100,11 @@ function getFirstHolidayAliyaName(holidayHeb) {
     ? 'מפטיר'
     : holidayHeb === 'חנוכה'
     ? 'נר ראשון'
-    : holidayHeb === 'שמיני עצרת'
+    : holidayHeb.includes('וזאת הברכה')
     ? 'וזאת הברכה'
-    : holidayHeb.match('[בגדהוז]. סוכות')
+    : holidayHeb === 'שמחת תורה, בראשית' || holidayHeb === 'שמיני עצרת, בראשית'
+    ? 'חתן בראשית'
+    : holidayHeb.match('^[בגדהוז]. סוכות')
     ? 'ראשון עד רביעי'
     : holidayHeb.includes('פרשת ')
     ? holidayHeb
@@ -124,7 +126,7 @@ function checkAliyaSignExist(
         pagesDic[parashotHebEnDic[parashaName]]['aliya_' + aliyaNum]) ||
     (isHoliday &&
       document.querySelector(
-        `[name="${getFirstHolidayAliyaName(holidayHeb)}"]`
+        `[name^="${getFirstHolidayAliyaName(holidayHeb)}"]`
       ))
   );
 }
@@ -134,22 +136,23 @@ function scrollToElementName(aliyaElementName) {
   const toraPage = document.querySelector('.tora-page');
   const isAppBarFixed = toraPage.classList.contains('app-bar-fixed');
   const lineElem = document.querySelector(
-    `.humash-text [name="${aliyaElementName}"]`
+    `.humash-text [name^="${aliyaElementName}"]`
   );
-  const scrollOpt = { behavior: 'smooth', block: 'start' };
 
-  if (!isAppBarFixed) {
-    lineElem.scrollIntoView(scrollOpt);
-  } else {
-    const { height: AppBarHeight } = appBarElem.getBoundingClientRect();
-    const { top: lineDisFromTop } = lineElem.getBoundingClientRect();
+  const {
+    top: lineDisFromTop,
+    height: lineHeight,
+  } = lineElem.getBoundingClientRect();
+  const { height: AppBarHeight } = appBarElem.getBoundingClientRect();
+  const scrollTopDistance =
+    lineDisFromTop - (isAppBarFixed ? AppBarHeight : 0) - lineHeight * 0.8;
 
-    toraPage.scrollTo({
-      ...scrollOpt,
-      left: 0,
-      top: lineDisFromTop - AppBarHeight - 5,
-    });
-  }
+  toraPage.scrollBy({
+    behavior: 'smooth',
+    block: 'start',
+    left: 0,
+    top: scrollTopDistance,
+  });
 }
 
 function addTextGlowAnimation(element) {

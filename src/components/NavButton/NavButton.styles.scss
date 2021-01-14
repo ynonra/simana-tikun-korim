@@ -73,3 +73,11 @@ $gradient-border-inner-radius: 15px;
     }
   }
 }
+body.ltr .nav-button {
+  .btn-title {
+    padding-top: 0.32em;
+    padding-bottom: 0.32em;
+    font-weight: normal;
+    font-size: 1rem;
+  }
+}

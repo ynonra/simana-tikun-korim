@@ -2,20 +2,24 @@ import React, { useState, useEffect, useRef } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
-import { selectTeamimType } from '../../redux/tikun/tikun.selectors';
+import {
+  selectLang,
+  selectTeamimType,
+} from '../../redux/tikun/tikun.selectors';
 
+import TeamimButtons from '../../components/TeamimButtons/TeamimButtons';
 import AudioPlayer from 'react-h5-audio-player';
 
 import AppBar from '../../components/AppBar/AppBar.component';
 
-import { allTeamimDic } from '../../data/teamim-dic';
-
-import 'react-h5-audio-player/lib/styles.css';
-import './LearnTeamimPage.scss';
-import TeamimButtons from '../../components/TeamimButtons/TeamimButtons';
 import { unlockOrientation } from '../../util/screen';
 
-const LearnTeamimPage = ({ bookTypeDic, teamimType }) => {
+import { allTeamimDic } from '../../data/teamim-dic';
+import { learnTeamimPage } from '../../data/lang-dic';
+import 'react-h5-audio-player/lib/styles.css';
+import './LearnTeamimPage.scss';
+
+const LearnTeamimPage = ({ bookTypeDic, teamimType, lang }) => {
   const [soundFileSrc, setSoundFileSrc] = useState(null);
   const [taam, setTaam] = useState(allTeamimDic);
   const [error, setError] = useState(null);
@@ -41,7 +45,7 @@ const LearnTeamimPage = ({ bookTypeDic, teamimType }) => {
 
   function clickTaamHandler(taamDic) {
     return () => {
-      if (taamDic.heb === taam.heb) {
+      if (taamDic.he === taam.he) {
         const audioElem = playerRef.current.audio.current;
         audioElem.currentTime = 0;
         audioElem.play();
@@ -52,7 +56,7 @@ const LearnTeamimPage = ({ bookTypeDic, teamimType }) => {
 
   return (
     <div className="learn-teamim-page page default-background extra-opacity">
-      <AppBar title={`${bookTypeDic.heb} - לימוד טעמים`} withScreenToggleBtn />
+      <AppBar title={learnTeamimPage.appBarTitle[bookTypeDic.en][lang]} />
       <TeamimButtons taam={taam} clickTaamHandler={clickTaamHandler} />
       {!error ? (
         <AudioPlayer
@@ -72,6 +76,7 @@ const LearnTeamimPage = ({ bookTypeDic, teamimType }) => {
 
 const mapStateToProps = createStructuredSelector({
   teamimType: selectTeamimType,
+  lang: selectLang,
 });
 
 export default connect(mapStateToProps)(LearnTeamimPage);

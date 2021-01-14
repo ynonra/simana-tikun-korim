@@ -11,7 +11,7 @@ $finger-action-blur-radius: 10px;
 $finger-action-spread-radius: 5px;
 
 .tutorial-modal {
-  z-index: 1000;
+  z-index: 1150;
   position: fixed;
   left: 0;
   top: 0;
@@ -151,10 +151,19 @@ $finger-action-spread-radius: 5px;
       width: 200px;
       height: $finger-radius * 2;
       border-radius: $finger-radius;
-      right: -135px;
       transform: translateX(0);
-      & .finger-action {
-        animation: swipe-left 3.5s infinite reverse ease-in-out;
+
+      &.dir-rtl {
+        right: -135px;
+        & .finger-action {
+          animation: swipe-left 3.5s infinite reverse ease-in-out;
+        }
+      }
+      &.dir-ltr {
+        left: -135px;
+        & .finger-action {
+          animation: swipe-left 3.5s infinite ease-in-out;
+        }
       }
     }
     @keyframes swipe-left-right {
@@ -263,7 +272,13 @@ $finger-action-spread-radius: 5px;
   .skip-tutorial-btn {
     position: absolute;
     bottom: 10px;
-    left: 10px;
-    background-color: #bbbbbb;
+    background-color: #ccc;
+
+    &.dir-rtl {
+      left: 10px;
+    }
+    &.dir-ltr {
+      right: 10px;
+    }
   }
 }

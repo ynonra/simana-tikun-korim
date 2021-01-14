@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
+import { selectLang } from '../../redux/tikun/tikun.selectors';
+import { createStructuredSelector } from 'reselect';
 
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -8,6 +11,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
+import { modalText } from '../../data/lang-dic';
 import './modalDialog.scss';
 
 const ModalDialog = ({
@@ -19,6 +23,7 @@ const ModalDialog = ({
   handleConfirm,
   withInput,
   getInitialInputValue,
+  lang,
 }) => {
   const [inputValue, setInputValue] = useState(
     getInitialInputValue && getInitialInputValue()
@@ -56,7 +61,7 @@ const ModalDialog = ({
           }}
           color="primary"
         >
-          ביטול
+          {modalText.cancel[lang]}
         </Button>
         <Button
           onClick={() => {
@@ -65,11 +70,15 @@ const ModalDialog = ({
           }}
           color="primary"
         >
-          אישור
+          {modalText.confirm[lang]}
         </Button>
       </DialogActions>
     </Dialog>
   );
 };
 
-export default ModalDialog;
+const mapStateToProps = createStructuredSelector({
+  lang: selectLang,
+});
+
+export default connect(mapStateToProps)(ModalDialog);

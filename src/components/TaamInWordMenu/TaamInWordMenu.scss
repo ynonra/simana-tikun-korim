@@ -32,6 +32,10 @@
     align-items: center;
     cursor: pointer;
     transition: background-color 0.15s;
+    &.dir-ltr {
+      justify-content: space-between;
+      padding: 0.1em 0.5em;
+    }
 
     &.active {
       background-color: #cdcdcd;
@@ -51,12 +55,22 @@
       &.marokai {
         color: $marokai-color;
       }
+
+      &.dir-rtl {
+        font-family: $global-font-family-he;
+        width: 2.8em;
+        margin-left: 0.6em;
+        text-align: left;
+      }
+      &.dir-ltr {
+        font-family: $global-font-family-en;
+        margin-right: 0.6em;
+        text-align: right;
+        padding-bottom: 0.3em;
+      }
+
       height: fit-content;
-      //   width: fit-content;
-      margin-left: 10px;
       font-weight: bold;
-      width: 2.8em;
-      text-align: left;
     }
     .taam-title {
       font-family: $tora-font-family;

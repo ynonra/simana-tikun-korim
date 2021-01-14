@@ -76,6 +76,7 @@
       height: $btn-height;
       padding: 0.6em;
       border-radius: 0;
+      // font-size: 1em;
 
       &.style-button {
         padding: 0 !important;
@@ -142,8 +143,11 @@
         box-sizing: border-box;
         transition: 0.2s;
         outline: none;
+        font-family: $global-font-family-he;
+
         &:hover {
           background-color: #fde46f99;
+          cursor: pointer;
         }
       }
     }

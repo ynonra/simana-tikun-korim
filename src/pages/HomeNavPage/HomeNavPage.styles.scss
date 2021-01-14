@@ -30,7 +30,6 @@ $last-btn-size: $btn-size * 1.2;
         font-weight: bold;
         font-size: 1.5em;
         display: block;
-        padding: 0.3em;
         padding: 0.1em;
         color: #000;
       }
@@ -46,4 +45,8 @@ $last-btn-size: $btn-size * 1.2;
       }
     }
   }
+}
+
+body.ltr .home-nav-buttons-container .button-title {
+  font-weight: normal !important;
 }

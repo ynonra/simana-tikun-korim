@@ -1,8 +1,12 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
+import { selectLang } from '../../redux/tikun/tikun.selectors';
 
+import { downloadingLoaderText } from '../../data/lang-dic';
 import './LoaderForDownloading.scss';
 
-const LoaderForDownloading = () => (
+const LoaderForDownloading = ({ lang }) => (
   <div className="loader-container">
     <svg
       className="tea"
@@ -46,9 +50,13 @@ const LoaderForDownloading = () => (
         strokeLinejoin="round"
       ></path>
     </svg>
-    <span className="loading-text">מוריד קבצים למכשיר</span>
-    <span className="loading-text">אנא המתן כדקה</span>
+    <span className="loading-text">{downloadingLoaderText.line1[lang]}</span>
+    <span className="loading-text">{downloadingLoaderText.line2[lang]}</span>
   </div>
 );
 
-export default LoaderForDownloading;
+const mapStateToProps = createStructuredSelector({
+  lang: selectLang,
+});
+
+export default connect(mapStateToProps)(LoaderForDownloading);

@@ -50,11 +50,15 @@
     }
   }
 }
+
 .audio-player {
   outline: none;
   direction: ltr !important;
   height: 5.3em;
   * {
     outline: none;
+  }
+  .rhap_controls-section * {
+    font-family: none;
   }
 }

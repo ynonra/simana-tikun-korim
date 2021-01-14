@@ -4,6 +4,7 @@ import { createStructuredSelector } from 'reselect';
 
 import {
   selectIsBookmarkLineSelectionMode,
+  selectLang,
   // selectNikudMode,
 } from '../../redux/tikun/tikun.selectors';
 import {
@@ -18,11 +19,12 @@ import Button from '@material-ui/core/Button';
 
 import { holidaysHebEnDic } from '../../data/parashot-by-books-dic';
 
+import { tikunReadingPageText } from '../../data/lang-dic';
 import './line.styles.scss';
+import { useLocation } from 'react-router';
 
 const Line = ({
   str,
-  // nikudMode,
   isNikudMode,
   holiday,
   specHoliday,
@@ -35,8 +37,20 @@ const Line = ({
   handleOpenBookmarkDialog,
   handleSaveExistingBookmark,
   isFirstScroll,
+  lang,
 }) => {
   const lineRef = useRef(null);
+  const israelQuery = new URLSearchParams(useLocation().search).get('israel');
+  const israelOrAbroad =
+    israelQuery === 'true'
+      ? 'israel'
+      : israelQuery === 'false'
+      ? 'abroad'
+      : undefined;
+  const holidayAliyotDivision =
+    holidaysHebEnDic?.[holiday]?.subHolidays?.[israelOrAbroad]?.[specHoliday]
+      ?.aliyotDivision;
+
   let lineMode = '';
   const isClosenParasha = str.includes('{ס}');
   if (str.includes('{פ}')) lineMode += ' open-parasha';
@@ -45,16 +59,21 @@ const Line = ({
   const className = str.match(/{[ספ]}/) ? 'word-padding' : '';
 
   const holidayRegex = specHoliday
-    ? new RegExp(
-        `{חג-${
-          holiday
-            ? holidaysHebEnDic[holiday].subHolidays[specHoliday].heb
-            : holidaysHebEnDic[specHoliday].heb
-        }-.+?}`,
-        'g'
-      )
+    ? holidayAliyotDivision
+      ? new RegExp(`{${holidayAliyotDivision}-.+?}`)
+      : new RegExp(
+          `{חג-${israelOrAbroad === 'abroad' ? 'חו"ל-' : ''}${
+            holiday
+              ? israelOrAbroad
+                ? holidaysHebEnDic[holiday].subHolidays[israelOrAbroad][
+                    specHoliday
+                  ].he
+                : holidaysHebEnDic[holiday].subHolidays[specHoliday].he
+              : holidaysHebEnDic[specHoliday].he
+          }-.+?}`,
+          'g'
+        )
     : null;
-
   const aliyotSigns = !specHoliday
     ? str.match(
         /({שנ.+?}|{שליש.+?}|{רביע.+?}|{חמיש.+?}|{שיש.+?}|{שביע.+?}|{מפטי.+?}|{במחוברות.+?}|\[.+?\])/g
@@ -74,7 +93,7 @@ const Line = ({
       }}
     >
       <Button variant="contained" color="primary" className="bookmark-line-btn">
-        הנח סימניה כאן
+        {tikunReadingPageText.chooseLineForBookmarkBtn[lang]}
       </Button>
     </div>
   );
@@ -149,7 +168,7 @@ const Line = ({
 
 const mapStateToProps = createStructuredSelector({
   isBookmarkLineSelectionMode: selectIsBookmarkLineSelectionMode,
-  // nikudMode: selectNikudMode,
+  lang: selectLang,
 });
 
 const mapDispatchToProps = (dispatch) => ({

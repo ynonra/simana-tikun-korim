@@ -4,6 +4,7 @@ import { createStructuredSelector } from 'reselect';
 import { connect } from 'react-redux';
 
 import {
+  selectLang,
   selectStyleMode,
   selectTeamimType,
 } from '../../redux/tikun/tikun.selectors';
@@ -19,12 +20,14 @@ import '../ReadingExamplePage/ReadingExamplePage.scss';
 import './ReadingExamplePage.scss';
 import { setToraPageColumnsCount } from '../../redux/tikun/tikun.actions';
 import { unlockOrientation } from '../../util/screen';
+import { readingSamplePage } from '../../data/lang-dic';
 
 const ReadingExamplePage = ({
   bookTypeDic,
   teamimType,
   styleMode,
   setColumnsCount,
+  lang,
 }) => {
   const [soundFileSrc, setSoundFileSrc] = useState(null);
   const firstPageNum = bookTypeDic.en === 'humash' ? 233 : 'haftara-roni-akara';
@@ -114,12 +117,19 @@ const ReadingExamplePage = ({
     <div
       className={`reading-example-page page clear-justify-content tikun-reading-page-container ${styleMode}`}
     >
-      <AppBar title={`האזנה ל${bookTypeDic.heb}`} withScreenToggleBtn />
+      <AppBar
+        title={readingSamplePage.appBarTitle[bookTypeDic.en][lang]}
+        withScreenToggleBtn
+      />
       <ToraPage
         specificLocationObj={specificLocationObj}
         isLearnMode
         lockPage
-        haftaraData={bookTypeDic.en === 'haftara' ? { heb: 'לפרשת נח' } : null}
+        haftaraData={
+          bookTypeDic.en === 'haftara'
+            ? { he: 'לפרשת נח', en: 'for Parshat Noah' }
+            : null
+        }
       />
       {!error ? (
         <AudioPlayer
@@ -139,6 +149,7 @@ const ReadingExamplePage = ({
 const mapStateToProps = createStructuredSelector({
   teamimType: selectTeamimType,
   styleMode: selectStyleMode,
+  lang: selectLang,
 });
 
 const mapDispatchToProps = (dispatch) => ({

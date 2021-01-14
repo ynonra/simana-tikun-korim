@@ -39,7 +39,7 @@ export function findTaamInWord(currentWord, prevWords, nextWords) {
     // console.log(isContinuationFound);
     taamData = {
       ...findTaamData({
-        queryLang: 'heb',
+        queryLang: 'he',
         sfaradiQuery: continuationTaam || null,
         ashkenaziQuery: '֖',
       }),
@@ -62,7 +62,7 @@ export function findTaamInWord(currentWord, prevWords, nextWords) {
     // console.log(isContinuationFound);
     taamData = {
       ...findTaamData({
-        queryLang: 'heb',
+        queryLang: 'he',
         sfaradiQuery: continuationTaam,
         ashkenaziQuery: '֖',
       }),
@@ -95,7 +95,7 @@ export function findTaamInWord(currentWord, prevWords, nextWords) {
     );
     taamData = {
       ...findTaamData({
-        queryLang: 'heb',
+        queryLang: 'he',
         sfaradiQuery: taamStr,
         ashkenaziQuery: taamStr,
       }),
@@ -164,7 +164,7 @@ function findShofarMehupahHandler(teamimArr, nextWords) {
     nextWords && nextWords.findIndex((word) => word.includes('֙')) + 1;
   const taamData = {
     ...findTaamData({
-      queryLang: 'heb',
+      queryLang: 'he',
       sfaradiQuery: '֤',
       ashkenaziQuery: '֤',
     }),
@@ -228,7 +228,7 @@ function getAzlaGereshData() {
 function getSecondTaamData(teamimArr, firstTaamStr) {
   const secondTaamStr = teamimArr.find((taamStr) => taamStr !== firstTaamStr);
   const secondTaamData = findTaamData({
-    queryLang: 'heb',
+    queryLang: 'he',
     sfaradiQuery: secondTaamStr,
     ashkenaziQuery: secondTaamStr,
   });
@@ -245,7 +245,7 @@ function getTelishaData() {
 
 function getZarkaData() {
   return findTaamData({
-    queryLang: 'heb',
+    queryLang: 'he',
     sfaradiQuery: '֮',
     ashkenaziQuery: '֮',
   });
@@ -253,7 +253,7 @@ function getZarkaData() {
 
 function getSegoltaData() {
   return findTaamData({
-    queryLang: 'heb',
+    queryLang: 'he',
     sfaradiQuery: '֒',
     ashkenaziQuery: '֒',
   });
@@ -327,7 +327,7 @@ function findTarhaContinuation(teamimArr, nextWords, prevWords) {
 
 function getFirstTaamData(teamimArr) {
   return findTaamData({
-    queryLang: 'heb',
+    queryLang: 'he',
     sfaradiQuery: teamimArr[0],
     ashkenaziQuery: teamimArr[0],
   });
@@ -365,7 +365,7 @@ function findTaamData({ queryLang, sfaradiQuery, ashkenaziQuery }) {
 
 function findTaamDataInSpecificReadingType(queryLang, query) {
   return (taamData) =>
-    taamData.forTeamimParser !== false && queryLang === 'heb'
+    taamData.forTeamimParser !== false && queryLang === 'he'
       ? taamData[queryLang] && taamData[queryLang].match(query)
       : taamData[queryLang] === query;
 }

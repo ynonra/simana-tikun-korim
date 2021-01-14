@@ -40,7 +40,7 @@
     &.tutorial-model-mode {
       transition: all 0.5s;
       transform: scale(1.1);
-      z-index: 1100;
+      z-index: 1300;
     }
   }
 
@@ -57,9 +57,17 @@
     .titles {
       display: flex;
       justify-content: space-between;
-      width: 81%;
-      padding: 0 10%;
+      width: 86%;
+      padding: 0 7%;
       margin-left: 8vw;
+      .right-title {
+        order: 1;
+      }
+      &.lang-he {
+        .right-title {
+          order: 0;
+        }
+      }
       h1 {
         margin-top: 0;
       }

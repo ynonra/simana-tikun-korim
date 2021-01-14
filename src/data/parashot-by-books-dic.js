@@ -131,7 +131,7 @@ export const parashotHebEnDic = {
   'נצבים וילך': 'Nitzavim Vayeilech',
   וילך: 'Vayeilech',
   האזינו: "Ha'Azinu",
-  'וזאת הברכה': 'vezot-haberaha',
+  'וזאת הברכה': "V'zot-HaBerachah",
   Bereshit: 'בראשית',
   Noach: 'נח',
   'Lech-Lecha': 'לך לך',
@@ -191,93 +191,292 @@ export const parashotHebEnDic = {
   'Nitzavim Vayeilech': 'ניצבים וילך',
   Vayeilech: 'וילך',
   "Ha'Azinu": 'האזינו',
-  'vezot-haberaha': 'וזאת הברכה',
+  "V'zot-HaBerachah": 'וזאת הברכה',
 };
 
 export const holidaysHebEnDic = {
-  'Rosh Chodesh': { heb: 'ראש חודש', page: 189 }, //d
+  'Rosh Chodesh': { he: 'ראש חודש', en: 'Rosh Chodesh', page: 189 },
 
   'Rosh Hashana': {
-    heb: 'ראש השנה',
+    he: 'ראש השנה',
+    en: 'Rosh Hashanah',
     subHolidays: {
-      'a Rosh Hashana': { heb: "א' ראש השנה", page: 20 }, //d
-      'b Rosh Hashana': { heb: "ב' ראש השנה", page: 22 }, //d
-      'Rosh Hashana maftir': { heb: 'ראש השנה מפטיר', page: 190 }, //d
+      'a Rosh Hashana': { he: "א' ראש השנה", en: 'Rosh Hashanah א', page: 20 },
+      'b Rosh Hashana': { he: "ב' ראש השנה", en: 'Rosh Hashanah ב', page: 22 },
+      'Rosh Hashana maftir': {
+        he: 'ראש השנה מפטיר',
+        en: 'Rosh Hashanah Maftir',
+        page: 190,
+      },
     },
   },
 
   'Yom Kippur': {
-    heb: 'יום הכיפורים',
+    he: 'יום הכיפורים',
+    en: 'Yom Kippur',
     subHolidays: {
-      'Yom Kippur shaharit': { heb: 'יום הכיפורים שחרית', page: 131 }, //D
+      'Yom Kippur shaharit': {
+        he: 'יום הכיפורים שחרית',
+        en: 'Yom Kippur Shacharit',
+        page: 131,
+      },
       'Yom Kippur shaharit maftir': {
-        //D
-        heb: 'יום הכיפורים שחרית מפטיר',
+        he: 'יום הכיפורים שחרית מפטיר',
+        en: 'Yom Kippur Shacharit, Maftir',
         page: 190,
       },
-      'Yom Kippur minha': { heb: 'יום הכיפורים מנחה', page: 134 }, //D
+      'Yom Kippur minha': {
+        he: 'יום הכיפורים מנחה',
+        en: 'Yom Kippur Mincha',
+        page: 134,
+      },
     },
   },
 
   Sukkot: {
-    heb: 'סוכות',
+    he: 'סוכות',
+    en: 'Sukkot',
     subHolidays: {
-      'a Sukkot': { heb: "א' סוכות", page: 139 }, //D
-      'a Sukkot maftir': { heb: "א' סוכות מפטיר", page: 190 }, //d
-      'b Sukkot': { heb: "ב' סוכות", page: 190 }, //d
-      'c Sukkot': { heb: "ג' סוכות", page: 191 }, //d
-      'd Sukkot': { heb: "ד' סוכות", page: 191 }, //d
-      'e Sukkot': { heb: "ה' סוכות", page: 191 }, //d
-      'f Sukkot': { heb: "ו' סוכות", page: 191 }, //d
-      'g Sukkot': { heb: "ז' סוכות", page: 191 }, //d
-      'Shabat chol hamoed Sukkot': { heb: 'שבת חול המועד סוכות', page: 101 }, //D
-      'Shmini Atzeret': { heb: 'שמיני עצרת', page: 244 }, // פשוט וזאת הברכה !!!ו
-      'Shmini Atzeret second book': { heb: 'שמיני עצרת ספר שני', page: 1 }, //D
-      'Shmini Atzeret maftir': { heb: 'שמיני עצרת מפטיר', page: 191 }, //D
+      israel: {
+        'a Sukkot': { he: "א' סוכות", en: 'Sukkot א', page: 139 },
+        'a Sukkot maftir': {
+          he: "א' סוכות מפטיר",
+          en: 'Sukkot א, Maftir',
+          page: 190,
+        },
+        'b Sukkot': { he: "ב' סוכות", en: 'Sukkot ב', page: 190 },
+        'c Sukkot': { he: "ג' סוכות", en: 'Sukkot ג', page: 191 },
+        'd Sukkot': { he: "ד' סוכות", en: 'Sukkot ד', page: 191 },
+        'e Sukkot': { he: "ה' סוכות", en: 'Sukkot ה', page: 191 },
+        'f Sukkot': { he: "ו' סוכות", en: 'Sukkot ו', page: 191 },
+        'g Sukkot': { he: "ז' סוכות", en: 'Sukkot ז', page: 191 },
+        'Shabbat chol hamoed Sukkot': {
+          he: 'שבת חול המועד סוכות',
+          en: 'Shabbat chol hamoed Sukkot',
+          page: 101,
+        },
+        'Shmini Atzeret': {
+          he: 'שמיני עצרת, וזאת הברכה',
+          en: "Shmini Atzeret, V'Zot HaBerachah",
+          page: 244,
+        }, // פשוט וזאת הברכה !!!ו
+        'Shmini Atzeret second book': {
+          he: 'שמיני עצרת, בראשית',
+          en: 'Shmini Atzeret, Bereshit',
+          page: 1,
+        },
+        'Shmini Atzeret maftir': {
+          he: 'שמיני עצרת מפטיר',
+          en: 'Shmini Atzeret maftir',
+          page: 191,
+        },
+      },
+      abroad: {
+        'a Sukkot': { he: "א' & ב' סוכות", en: 'Sukkot א & ב', page: 139 },
+        'a Sukkot maftir': {
+          he: "א' & ב' סוכות מפטיר",
+          en: 'Sukkot א & ב, Maftir',
+          page: 190,
+        },
+        'c Sukkot': { he: "ג' סוכות", en: 'Sukkot ג', page: 190 },
+        'd Sukkot': { he: "ד' סוכות", en: 'Sukkot ד', page: 191 },
+        'e Sukkot': { he: "ה' סוכות", en: 'Sukkot ה', page: 191 },
+        'f Sukkot': { he: "ו' סוכות", en: 'Sukkot ו', page: 191 },
+        'g Sukkot': { he: "ז' סוכות", en: 'Sukkot ז', page: 191 },
+        'Shabbat chol hamoed Sukkot': {
+          he: 'שבת חול המועד סוכות',
+          en: 'Shabbat chol hamoed Sukkot',
+          page: 101,
+        },
+        'Shmini Atzeret': {
+          he: 'שמיני עצרת',
+          en: 'Shmini Atzeret',
+          page: 220,
+        },
+        'Simchat Torah maftir': {
+          he: 'שמחת תורה & שמיני עצרת, מפטיר',
+          en: 'Simchat Torah & Shmini Atzeret, maftir',
+          page: 191,
+        },
+        'Simchat Torah': {
+          he: 'שמחת תורה, וזאת הברכה',
+          en: "Simchat Torah, V'Zot HaBerachah",
+          page: 244,
+        }, // פשוט וזאת הברכה !!!ו
+        'Simchat Torah second book': {
+          he: 'שמחת תורה, בראשית',
+          en: 'Simchat Torah, Bereshit',
+          page: 1,
+        },
+      },
     },
   },
 
-  Chanukah: { heb: 'חנוכה', page: 158 }, //D
-  Purim: { heb: 'פורים', page: 81 }, //D
+  Chanukah: { he: 'חנוכה', en: 'Chanukah', page: 158 },
+  Purim: { he: 'פורים', en: 'Purim', page: 81 },
   'Arba parashiyot': {
-    heb: 'ארבע פרשיות',
+    he: 'ארבע פרשיות',
+    en: 'Arba Parashiyot',
     subHolidays: {
-      'Parshat Shekalim': { heb: 'פרשת שקלים', page: 97 }, //D
-      'Parshat Zachor': { heb: 'פרשת זכור', page: 232 }, //D
-      'Parshat Parah': { heb: 'פרשת פרה', page: 177 }, //D
-      'Parshat ShHachodeshekalim': { heb: 'פרשת החודש', page: 73 }, //D
+      'Parshat Shekalim': {
+        he: 'פרשת שקלים',
+        en: 'Parshat Shekalim',
+        page: 97,
+      },
+      'Parshat Zachor': { he: 'פרשת זכור', en: 'Parshat Zachor', page: 232 },
+      'Parshat Parah': { he: 'פרשת פרה', en: 'Parshat Parah', page: 177 },
+      'Parshat Hachodesh': {
+        he: 'פרשת החודש',
+        en: 'Parshat Hachodesh',
+        page: 73,
+      },
     },
   },
 
   Pesach: {
-    heb: 'פסח',
+    he: 'פסח',
+    en: 'Pesach',
     subHolidays: {
-      'a Pesach': { heb: "א' פסח", page: 74 }, //D
-      'a Pesach maftir': { heb: "א' פסח מפטיר", page: 189 }, //d
-      'b Pesach': { heb: "ב' פסח", page: 139 }, //D
-      'c Pesach': { heb: "ג' פסח", page: 75 }, //D
-      'd Pesach': { heb: "ד' פסח", page: 87 }, //D
-      'e Pesach': { heb: "ה' פסח", page: 101 }, //D
-      'f Pesach': { heb: "ו' פסח", page: 163 }, //D
-      'g Pesach': { heb: "ז' פסח", page: 76 }, //D
-      'Shabat chol hamoed Pesach': { heb: 'שבת חול המועד פסח', page: 101 }, //D
-      'b Pesach maftir': { heb: 'חול המועד פסח מפטיר', page: 189 }, //d
+      israel: {
+        'a Pesach': { he: "א' פסח", en: 'Pesach א', page: 74 },
+        'a Pesach maftir': {
+          he: "א' פסח מפטיר",
+          en: 'Pesach א Maftir',
+          page: 189,
+        },
+        'b Pesach': { he: "ב' פסח", en: 'Pesach ב', page: 139 },
+        'c Pesach': { he: "ג' פסח", en: 'Pesach ג', page: 75 },
+        'd Pesach': { he: "ד' פסח", en: 'Pesach ד', page: 87 },
+        'e Pesach': { he: "ה' פסח", en: 'Pesach ה', page: 101 },
+        'f Pesach': { he: "ו' פסח", en: 'Pesach ו', page: 163 },
+        'g Pesach': { he: "ז' פסח", en: 'Pesach ז', page: 76 },
+        'Shabbat chol hamoed Pesach': {
+          he: 'שבת חול המועד פסח',
+          en: 'Shabbat chol hamoed Pesach',
+          page: 101,
+        },
+        'Chol hamoed Pesach Maftir': {
+          he: 'חול המועד פסח מפטיר',
+          en: 'Chol hamoed Pesach Maftir',
+          page: 189,
+        },
+      },
+      abroad: {
+        'a Pesach': {
+          he: "א' פסח",
+          en: 'Pesach א',
+          page: 74,
+          aliyotDivision: "חג-א' פסח",
+        },
+        'b Pesach': {
+          he: "ב' פסח",
+          en: 'Pesach ב',
+          page: 139,
+          aliyotDivision: "חג-ב' פסח",
+        },
+        'a & b Pesach maftir': {
+          he: "א' & ב' פסח מפטיר",
+          en: 'Pesach א & ב Maftir',
+          page: 189,
+          aliyotDivision: "חג-א' פסח מפטיר",
+        },
+        'c Pesach': {
+          he: "ג' פסח",
+          en: 'Pesach ג',
+          page: 75,
+          aliyotDivision: "חג-ג' פסח",
+        },
+        'd Pesach': {
+          he: "ד' פסח",
+          en: 'Pesach ד',
+          page: 87,
+          aliyotDivision: "חג-ד' פסח",
+        },
+        'e Pesach': {
+          he: "ה' פסח",
+          en: 'Pesach ה',
+          page: 101,
+          aliyotDivision: "חג-ה' פסח",
+        },
+        'f Pesach': {
+          he: "ו' פסח",
+          en: 'Pesach ו',
+          page: 163,
+          aliyotDivision: "חג-ו' פסח",
+        },
+        'g Pesach': {
+          he: "ז' פסח",
+          en: 'Pesach ז',
+          page: 76,
+          aliyotDivision: "חג-ז' פסח",
+        },
+        'h Pesach': {
+          he: "ח' פסח",
+          en: 'Pesach ח',
+          page: 220,
+          aliyotDivision: 'חג-חו"ל-שמיני עצרת',
+        },
+        'Shabbat chol hamoed Pesach': {
+          he: 'שבת חול המועד פסח',
+          en: 'Shabbat chol hamoed Pesach',
+          page: 101,
+          aliyotDivision: 'חג-שבת חול המועד פסח',
+        },
+        'Shabbat Chol hamoed Pesach Maftir': {
+          he: 'חול המועד פסח מפטיר',
+          en: 'Shabbat chol hamoed Pesach Maftir',
+          page: 189,
+          aliyotDivision: 'חג-חול המועד פסח מפטיר',
+        },
+      },
     },
   },
 
   Shavuot: {
-    heb: 'שבועות',
+    he: 'שבועות',
+    en: 'Shavuot',
     subHolidays: {
-      Shavuot: { heb: 'שבועות', page: 82 }, //D
-      'Shavuot maftir': { heb: 'שבועות מפטיר', page: 189 }, //d
+      israel: {
+        Shavuot: { he: 'שבועות', en: 'Shavuot', page: 82 },
+        'Shavuot maftir': {
+          he: 'שבועות מפטיר',
+          en: 'Shavuot maftir',
+          page: 189,
+        },
+      },
+      abroad: {
+        'Shavuot a': {
+          he: "שבועות א'",
+          en: 'Shavuot א',
+          page: 82,
+          aliyotDivision: 'חג-שבועות',
+        },
+        'Shavuot maftir א & ב': {
+          he: 'שבועות א & ב מפטיר',
+          en: 'Shavuot א & ב maftir',
+          page: 189,
+          aliyotDivision: 'חג-שבועות מפטיר',
+        },
+        'Shavuot b': {
+          he: "שבועות ב'",
+          en: 'Shavuot ב',
+          page: 220,
+          aliyotDivision: 'חג-חו"ל-שמיני עצרת',
+        },
+      },
     },
   },
 
   "Ta'anit": {
-    heb: 'תעניות',
+    he: 'תעניות',
+    en: "Ta'anit",
     subHolidays: {
-      "Ta'anit": { heb: 'תענית', page: 99 }, //D
-      "Tish'a B'Av shaharit": { heb: 'תשעה באב שחרית', page: 207 }, //D
+      "Ta'anit": { he: 'תענית', en: "Ta'anit", page: 99 },
+      "Tish'a B'Av shaharit": {
+        he: 'תשעה באב שחרית',
+        en: "Tish'a B'Av shaharit",
+        page: 207,
+      },
     },
   },
 };

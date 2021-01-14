@@ -1,18 +1,36 @@
+@import './util/css-variables.scss';
+
 html {
-  font-family: AssistantRegular, sans-serif;
-  font-family: Marco, sans-serif;
-  letter-spacing: 0.4px;
+  // letter-spacing: 0.4px;
   font-size: 20px;
+}
+body {
+  // font-family: AssistantRegular, sans-serif;
+  // letter-spacing: 0.4px;
+  // font-size: 20px;
+  &.rtl {
+    font-family: $global-font-family-he, sans-serif;
+  }
+  &.ltr {
+    font-family: $global-font-family-en, sans-serif;
+  }
   * {
+    text-transform: none;
+    // font-size: inherit;
     font-family: inherit;
-    letter-spacing: inherit;
+    // letter-spacing: inherit;
     -webkit-tap-highlight-color: transparent;
   }
 }
-body {
+
+.rtl {
   direction: rtl;
-  font-family: inherit !important;
 }
+
+.ltr {
+  direction: ltr;
+}
+
 .App {
   min-height: 100vh;
   overflow-x: hidden;
@@ -95,6 +113,10 @@ body {
   user-select: none;
 }
 
+.MuiButton-root {
+  text-transform: none !important;
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -140,15 +162,16 @@ body {
       format('svg');
 }
 
-// @font-face {
-//   font-family: 'AssistantRegular';
-//   src: url('./assets/fonts/AssistantRegular/AssistantRegular.eot');
-//   src: url('./assets/fonts/AssistantRegular/AssistantRegular.eot') format('embedded-opentype'),
-//     url('./assets/fonts/AssistantRegular/AssistantRegular.woff2') format('woff2'),
-//     url('./assets/fonts/AssistantRegular/AssistantRegular.woff') format('woff'),
-//     url('./assets/fonts/AssistantRegular/AssistantRegular.ttf') format('truetype'),
-//     url('./assets/fonts/AssistantRegular/AssistantRegular.svg#AssistantRegular') format('svg');
-// }
+@font-face {
+  font-family: 'OswaldLight';
+  src: url('./assets/fonts/OswaldLight/OswaldLight.eot');
+  src: url('./assets/fonts/OswaldLight/OswaldLight.eot')
+      format('embedded-opentype'),
+    url('./assets/fonts/OswaldLight/OswaldLight.woff2') format('woff2'),
+    url('./assets/fonts/OswaldLight/OswaldLight.woff') format('woff'),
+    url('./assets/fonts/OswaldLight/OswaldLight.ttf') format('truetype'),
+    url('./assets/fonts/OswaldLight/OswaldLight.svg') format('svg');
+}
 
 @font-face {
   font-family: 'Marco';

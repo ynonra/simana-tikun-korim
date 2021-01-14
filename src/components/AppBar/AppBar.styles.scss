@@ -21,6 +21,28 @@
       justify-content: space-between;
       align-items: center;
       height: $app-bar-height;
+      .title {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        width: 60vw;
+
+        @media screen and(max-width: 420px) {
+          width: 55vw;
+        }
+
+        @media screen and(max-width: 370px) {
+          width: 52vw;
+        }
+      }
+      @media screen and(max-width: 330px) {
+        .MuiIconButton-root {
+          padding: 8px;
+        }
+        & {
+          padding: 0 12px;
+        }
+      }
     }
   }
   & .right-side {

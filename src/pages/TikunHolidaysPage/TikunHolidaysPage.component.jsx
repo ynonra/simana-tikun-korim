@@ -1,5 +1,8 @@
 import React from 'react';
 import { Route, useRouteMatch } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
+import { selectLang } from '../../redux/tikun/tikun.selectors';
 
 import CustomAnimatedSwitch from '../../components/CustomAnimatedSwitch/CustomAnimatedSwitch.component';
 import AppBar from '../../components/AppBar/AppBar.component';
@@ -10,26 +13,23 @@ import TikunSpecHolidayPage from '../TikunSpecHolidayPage/TikunSpecHolidayPage.c
 
 import { holidaysHebEnDic } from '../../data/parashot-by-books-dic';
 
+import { tikunHolidaysPageText } from '../../data/lang-dic';
 import './TikunHolidaysPage.styles.scss';
 
-const TikunHolidaysPage = () => {
+const TikunHolidaysPage = ({ lang }) => {
   const match = useRouteMatch();
 
   return (
     <CustomAnimatedSwitch>
       <Route exact path={match.path}>
         <div className="holidays-page page default-background">
-          <AppBar title="מועדים" />
+          <AppBar title={tikunHolidaysPageText.appBarTitle[lang]} />
           <NavButtonsContainer
             buttonsData={Object.entries(holidaysHebEnDic).map(
               ([holidayEn, holidayObj]) => {
-                const url = !holidayObj.subHolidays
-                  ? holidayEn
-                  : // ? `${holidayEn}/${holidayEn}`
-                    holidayEn;
                 return {
-                  title: holidayObj.heb,
-                  url: url,
+                  title: holidayObj[lang],
+                  url: holidayEn,
                 };
               }
             )}
@@ -51,4 +51,8 @@ const TikunHolidaysPage = () => {
   );
 };
 
-export default TikunHolidaysPage;
+const mapStateToProps = createStructuredSelector({
+  lang: selectLang,
+});
+
+export default connect(mapStateToProps)(TikunHolidaysPage);

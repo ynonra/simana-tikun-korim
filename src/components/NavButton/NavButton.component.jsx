@@ -31,7 +31,6 @@ const NavButton = ({
       } ${scaleAnimation ? 'scale-animation' : ''}`}
     >
       <Link
-        // onClick={() => window.scrollTo(0, 0)}
         className={`nav-button ${inverted ? 'inverted' : ''}`}
         style={style}
         to={href}

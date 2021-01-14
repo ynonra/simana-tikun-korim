@@ -1,7 +1,9 @@
 import React, { useEffect } from 'react';
 import { Route } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 
+import { selectLang } from './redux/tikun/tikun.selectors';
 import { setNotesData, setUsageMode } from './redux/tikun/tikun.actions';
 
 import ScrollToTop from './components/ScrollToTop/ScrollToTop.component';
@@ -22,14 +24,26 @@ import { get } from 'idb-keyval';
 
 import './App.scss';
 
-const theme = createMuiTheme({
-  direction: 'rtl',
-  // typography: { fontFamily: 'AssistantRegular,sans-serif' },
-  typography: { fontFamily: 'Marco,sans-serif' },
-});
-const jss = create({ plugins: [...jssPreset().plugins, rtl()] });
+function App({ setUsageMode, setNotesData, lang }) {
+  const isRTL = lang === 'he';
+  const theme = createMuiTheme({
+    direction: isRTL ? 'rtl' : 'ltr',
+    // typography: { fontFamily: 'AssistantRegular,sans-serif' },
+    typography: { fontFamily: 'inherit' },
+  });
+  const jss = create({
+    plugins: [...jssPreset().plugins, isRTL ? rtl() : undefined],
+  });
 
-function App({ setUsageMode, setNotesData }) {
+  useEffect(() => {
+    setCssDirection();
+
+    function setCssDirection() {
+      document.body.classList.add(isRTL ? 'rtl' : 'ltr');
+      document.body.classList.remove(!isRTL ? 'rtl' : 'ltr');
+    }
+  }, [lang]);
+
   useEffect(() => {
     async function checkUsageMode() {
       const keyName = 'usage-mode';
@@ -71,9 +85,13 @@ function App({ setUsageMode, setNotesData }) {
   );
 }
 
+const mapStateToProps = createStructuredSelector({
+  lang: selectLang,
+});
+
 const mapDispatchToProps = (dispatch) => ({
   setUsageMode: (usageMode) => dispatch(setUsageMode(usageMode)),
   setNotesData: (notesData) => dispatch(setNotesData(notesData)),
 });
 
-export default connect(null, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);
