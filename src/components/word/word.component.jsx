@@ -9,13 +9,14 @@ import './word.styles.scss';
 const Word = ({ str, className, setTaamMenuData }) => {
   const [touchTimeout, setTouchTimeout] = useState(undefined);
 
-  const isSpecialLetter = str.match(/{[גק]-?.+?}/);
-  const specialSizeData =
-    isSpecialLetter && isSpecialLetter[0].replace(/[-{}]/g, '');
-  const specialSize = isSpecialLetter ? specialSizeData[0] : undefined;
-  const specialLetter = isSpecialLetter ? specialSizeData.slice(1) : undefined;
-  const lettersBeforeSpecialLetter = str.replace(/{.+/, '');
-  const lettersAfterSpecialLetter = str.replace(/.+}/, '');
+  // const isSpecialLetter = str.match(/{[גק]-?.+?}/);
+  // const specialSizeData =
+  //   isSpecialLetter && isSpecialLetter[0].replace(/[-{}]/g, '');
+  // const specialSize = isSpecialLetter ? specialSizeData[0] : undefined;
+  // const specialLetter = isSpecialLetter ? specialSizeData.slice(1) : undefined;
+  // const lettersBeforeSpecialLetter = str.replace(/{.+/, '');
+  // const lettersAfterSpecialLetter = str.replace(/.+}/, '');
+
   const isInvertedNun = str === '׆';
 
   function calcTaamName(wordElement) {
@@ -37,6 +38,35 @@ const Word = ({ str, className, setTaamMenuData }) => {
       ashkenaziSentenceRange
     );
     return { taamData, sfaradiSentence, ashkenaziSentence };
+  }
+
+  function parseSpecialLetters(str) {
+    const isSpecialLetter = includesSpecialLetter(str);
+    if (!isSpecialLetter) return str;
+
+    const specialSizeData =
+      isSpecialLetter && isSpecialLetter[0].replace(/[-{}]/g, '');
+    const specialSize = isSpecialLetter ? specialSizeData[0] : undefined;
+    const specialLetter = isSpecialLetter
+      ? specialSizeData.slice(1)
+      : undefined;
+    const lettersBeforeSpecialLetter = str.replace(/{.+/, '');
+    const lettersAfterSpecialLetter = str.replace(/.+?}/, '');
+
+    return (
+      <span>
+        {lettersBeforeSpecialLetter}
+        <span className={{ ג: 'big-letter', ק: 'small-letter' }[specialSize]}>
+          {specialLetter}
+        </span>
+        {/* {lettersAfterSpecialLetter} */}
+        {parseSpecialLetters(lettersAfterSpecialLetter)}
+      </span>
+    );
+
+    function includesSpecialLetter(str) {
+      return str.match(/{[גק]-?.+?}/);
+    }
   }
 
   function calcSentence(prevWords, wordStr, nextWords, sentenceRange) {
@@ -121,7 +151,8 @@ const Word = ({ str, className, setTaamMenuData }) => {
       onContextMenu={onMouseRightClickHandler}
       {...touchEndHandlers}
     >
-      {specialSizeData ? (
+      {parseSpecialLetters(str)}
+      {/* {specialSizeData ? (
         <span>
           {lettersBeforeSpecialLetter}
           <span className={{ ג: 'big-letter', ק: 'small-letter' }[specialSize]}>
@@ -131,7 +162,7 @@ const Word = ({ str, className, setTaamMenuData }) => {
         </span>
       ) : (
         str
-      )}
+      )} */}
     </span>
   );
 };

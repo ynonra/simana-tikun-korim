@@ -21,6 +21,7 @@
       justify-content: space-between;
       align-items: center;
       height: $app-bar-height;
+      padding: 0 !important;
       .title {
         white-space: nowrap;
         overflow: hidden;
@@ -34,6 +35,9 @@
         @media screen and(max-width: 370px) {
           width: 52vw;
         }
+      }
+      .MuiIconButton-edgeEnd {
+        margin: 0 !important;
       }
       @media screen and(max-width: 330px) {
         .MuiIconButton-root {

@@ -101,11 +101,46 @@ function AppBarComponent({
       holidaysHebEnDic[match.url.split('/').pop()][lang]
     : tikunReadingPageText.appBarTitle.chumash[lang];
 
+  const deviceSupportsOrientationMethods =
+    window.screen?.orientation?.lock && isMobile;
+
   return (
     <div className={`app-bar-container ${position}`}>
       <AppBar position={position || 'static'} className="app-bar">
         <Toolbar className="toolbar">
           <div className="right-side">
+            <IconButton
+              edge="end"
+              color="inherit"
+              aria-label={isRTL ? 'arrow-forward' : 'arrow-back'}
+              onClick={history.goBack}
+            >
+              {isRTL ? <ArrowForward /> : <ArrowBack />}
+            </IconButton>
+            <h3 className="title noselect">{appBarTitle}</h3>
+          </div>
+          <div className="left-side">
+            {withScreenToggleBtn && deviceSupportsOrientationMethods ? (
+              <IconButton
+                edge="end"
+                color="inherit"
+                aria-label="screen-rotate"
+                onClick={() =>
+                  toggleOrientationLock(setIsToraPageReady, setIsLandscape)
+                }
+              >
+                <ScreenRotation />
+              </IconButton>
+            ) : (
+              <IconButton
+                edge="end"
+                color="inherit"
+                aria-label="share"
+                onClick={onClickShareHandler}
+              >
+                <Share />
+              </IconButton>
+            )}
             <IconButton
               edge="start"
               color="inherit"
@@ -129,38 +164,6 @@ function AppBarComponent({
                 <Link to="/about">{appBarMenuText.about[lang]}</Link>
               </MenuItem>
             </Menu>
-            <h3 className="title">{appBarTitle}</h3>
-          </div>
-          <div className="left-side">
-            {withScreenToggleBtn && isMobile ? (
-              <IconButton
-                edge="end"
-                color="inherit"
-                aria-label="screen-rotate"
-                onClick={() =>
-                  toggleOrientationLock(setIsToraPageReady, setIsLandscape)
-                }
-              >
-                <ScreenRotation />
-              </IconButton>
-            ) : (
-              <IconButton
-                edge="end"
-                color="inherit"
-                aria-label="share"
-                onClick={onClickShareHandler}
-              >
-                <Share />
-              </IconButton>
-            )}
-            <IconButton
-              edge="end"
-              color="inherit"
-              aria-label={isRTL ? 'arrow-forward' : 'arrow-back'}
-              onClick={history.goBack}
-            >
-              {isRTL ? <ArrowForward /> : <ArrowBack />}
-            </IconButton>
           </div>
         </Toolbar>
       </AppBar>

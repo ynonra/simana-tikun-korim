@@ -35,6 +35,7 @@ export function createFunctionScrollToAliyaHandler(
       aliyaNum,
       parashatHashavuaObj
     );
+    console.log(aliyaElementName);
     if (
       !checkAliyaSignExist(
         isHoliday,
@@ -66,17 +67,23 @@ function getAliyaElementName(
   aliyaNum,
   parashatHashavuaObj
 ) {
-  if (isHoliday) return getFirstHolidayAliyaName(holidayHeb);
+  const isMegillatEsther = holidayHeb === 'מגילת אסתר';
+  if (isHoliday && !isMegillatEsther)
+    return getFirstHolidayAliyaName(holidayHeb);
 
-  let aliyaElementName = [
-    parashotHebEnDic[parashaName],
-    'שני',
-    'שלישי',
-    'רביעי',
-    'חמישי',
-    'שישי',
-    'שביעי',
-  ][aliyaNum - 1];
+  let aliyaElementName = !isMegillatEsther
+    ? [
+        parashotHebEnDic[parashaName],
+        'שני',
+        'שלישי',
+        'רביעי',
+        'חמישי',
+        'שישי',
+        'שביעי',
+      ][aliyaNum - 1]
+    : `פרק ${
+        ['א', 'ב', 'ג', 'ד', 'ה', 'ו', 'ז', 'ח', 'ט', 'י'][aliyaNum - 1]
+      }׳`;
   if (
     parashatHashavuaObj &&
     parashatHashavuaObj.isConnectedParasha &&
@@ -84,7 +91,7 @@ function getAliyaElementName(
   ) {
     aliyaElementName = 'מחוברות ' + aliyaElementName;
   }
-  if (aliyaNum == 1) {
+  if (aliyaNum == 1 && !isMegillatEsther) {
     aliyaElementName = aliyaElementName.split(' ')[0];
   }
   const aliyaSignElement = document.querySelector(
@@ -119,11 +126,16 @@ function checkAliyaSignExist(
   aliyaNum,
   parashaName
 ) {
+  const isMegillatEsther = holidayHeb === 'מגילת אסתר';
+  const correctAliyaOrPerekPageNum = isMegillatEsther
+    ? pagesDic['מגילת אסתר']['perek_' + aliyaNum]
+    : !isHoliday
+    ? pagesDic[parashotHebEnDic[parashaName]]['aliya_' + aliyaNum]
+    : null;
   return (
-    (!isHoliday &&
+    ((!isHoliday || isMegillatEsther) &&
       aliyaElementName &&
-      pageNum ===
-        pagesDic[parashotHebEnDic[parashaName]]['aliya_' + aliyaNum]) ||
+      pageNum === correctAliyaOrPerekPageNum) ||
     (isHoliday &&
       document.querySelector(
         `[name^="${getFirstHolidayAliyaName(holidayHeb)}"]`
@@ -138,6 +150,8 @@ function scrollToElementName(aliyaElementName) {
   const lineElem = document.querySelector(
     `.humash-text [name^="${aliyaElementName}"]`
   );
+  console.log(aliyaElementName);
+  console.log(lineElem);
 
   const {
     top: lineDisFromTop,

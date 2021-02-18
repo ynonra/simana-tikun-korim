@@ -57,6 +57,22 @@
       }
     }
 
+    &.is-aseret-bney-haman-mode #one-column-container {
+      // padding-right: 0;
+      font-size: 8.6vw;
+    }
+
+    &.is-aseret-bney-haman-mode #two-columns-container {
+      & #column-with-nikud {
+        // padding-right: 0;
+        font-size: 4.4vw;
+      }
+      & #column-without-nikud {
+        // padding-right: 2.5%;
+        font-size: 4.4vw;
+      }
+    }
+
     & #one-column-container {
       font-size: 4.3vw;
       padding-left: 1%;

@@ -45,10 +45,13 @@ export const tikunReadingPageText = {
     parshatHaShavua: { en: 'Parshat HaShavua', he: 'פרשת השבוע' },
     chumash: { en: 'Chumash', he: 'חומש' },
     bookmark: { en: 'Bookmark', he: 'סימניה' },
-    parshatHaShavua: { en: 'Holidays', he: 'מועדים' },
   },
   headerParshaTitle: { en: 'Parshat', he: 'פרשת' },
-  headerHaftaraTitle: { en: 'Haftara', he: 'פרשת' },
+  headerHaftaraTitle: { en: 'Haftara', he: 'הפטרה' },
+  headerMegillatEstherTitle: {
+    en: ['Megillat', 'Esther'],
+    he: ['מגילת', 'אסתר'],
+  },
   editBookmarkDialogSuccessAlert: {
     en: 'The Bookmark has been changed!',
     he: 'הסימניה שונתה בהצלחה!',
@@ -82,6 +85,7 @@ export const tikunSideNav = {
     he: 'שנה סימניה נוכחית',
   },
   scrollToAliya: { en: 'Scroll to Aliya', he: 'גלול לעליה' },
+  scrollToChapter: { en: 'Scroll to Chapter', he: 'גלול לפרק' },
   instructions: { en: 'Instructions', he: 'הוראות' },
 };
 

@@ -4,7 +4,6 @@ import Line from '../components/line/line.component';
 
 export function createFunctionHumashTextDOMGenerator(
   pageText,
-  // isNikudMode,
   holiday,
   specHoliday,
   handleOpenBookmarkDialog,

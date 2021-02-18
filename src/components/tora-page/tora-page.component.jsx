@@ -129,6 +129,8 @@ const ToraPage = ({
     match,
     israelQuery
   );
+  const isMegillatEsther = specHoliday === 'Megillat Esther';
+
   const parashaObj = getParashaObj(isParashatHashavua, match.params);
 
   const { parashaEnName, parashaHebName } = parashaObj;
@@ -170,16 +172,28 @@ const ToraPage = ({
   useEffect(() => {
     const importText = async () => {
       setIsToraPageReady(false);
-      let {
-        pageWithNikud: currentPageWithNikud,
-        pageWithoutNikud: currentPageWithoutNikud,
-      } = await import(`../../data/tikun-korim/pages/${pageNum}`);
+      let currentPageWithNikud, currentPageWithoutNikud;
+      try {
+        let { pageWithNikud, pageWithoutNikud } = await import(
+          `../../data/tikun-korim/${
+            isMegillatEsther ? 'megilat-ester' : 'pages'
+          }/${pageNum}`
+        );
+        currentPageWithNikud = pageWithNikud;
+        currentPageWithoutNikud = pageWithoutNikud;
+      } catch (err) {
+        if (isMegillatEsther) {
+          setPageNum(20);
+        } else {
+          setPageNum(pageNum - 1);
+        }
+        return;
+      }
       const humashTextDOMGenerator = createFunctionHumashTextDOMGenerator(
         {
           pageWithNikud: currentPageWithNikud,
           pageWithoutNikud: currentPageWithoutNikud,
         },
-        // nikudMode,
         holiday,
         specHoliday,
         handleOpenBookmarkDialog,
@@ -328,7 +342,9 @@ const ToraPage = ({
         <RightArrow />
       </div>
       <TaamInWordMenu
-        open={Boolean(wordTaamMenuData && wordTaamMenuData.taamData)}
+        open={Boolean(
+          wordTaamMenuData && wordTaamMenuData.taamData && !isMegillatEsther
+        )}
         onClose={() => setTaamMenuData(null)}
         data={wordTaamMenuData}
       />
@@ -385,6 +401,7 @@ const ToraPage = ({
             setSideNavOpen={setSideNavOpen}
             holidayHeb={holidayHeb}
             haftaraData={haftaraData}
+            isMegillatEsther={isMegillatEsther}
           />
           <ToraPageContent
             isPageTextReady={Boolean(textDoms)}
@@ -400,6 +417,7 @@ const ToraPage = ({
             setIsFirstScroll={setIsFirstScroll}
             isBookmarkLineSelectionMode={isBookmarkLineSelectionMode}
             isLearnMode={isLearnMode}
+            isMegillatEsther={isMegillatEsther}
           />
         </Swipeable>
       </div>
@@ -416,6 +434,7 @@ const ToraPage = ({
         handleClickAddBookmark={handleClickAddBookmark}
         handleClickSaveBookmark={handleClickSaveBookmark}
         isLearnMode={isLearnMode}
+        isMegillatEsther={isMegillatEsther}
       />
       <ModalDialog
         withInput

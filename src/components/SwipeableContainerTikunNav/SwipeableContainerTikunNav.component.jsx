@@ -37,6 +37,7 @@ const SwipeableContainerTikunNav = ({
   handleClickSaveBookmark,
   // setNikudMode,
   isLearnMode,
+  isMegillatEsther,
 }) => {
   function clickAliyaNum(aliyaNumber) {
     if (aliyaNum === aliyaNumber) {
@@ -44,9 +45,10 @@ const SwipeableContainerTikunNav = ({
       return;
     }
     setIsFirstScroll(true);
-    setPageNum(
-      pagesDic[parashotHebEnDic[parashaEnName]]['aliya_' + aliyaNumber]
-    );
+    const aliyaOrPerekPageNum = isMegillatEsther
+      ? pagesDic['מגילת אסתר']['perek_' + aliyaNumber]
+      : pagesDic[parashotHebEnDic[parashaEnName]]['aliya_' + aliyaNumber];
+    setPageNum(aliyaOrPerekPageNum);
     setAliyaNum(aliyaNumber);
     setNikudMode(true);
   }
@@ -80,6 +82,7 @@ const SwipeableContainerTikunNav = ({
         handleClickAddBookmark={handleClickAddBookmark}
         handleClickSaveBookmark={handleClickSaveBookmark}
         isLearnMode={isLearnMode}
+        isMegillatEsther={isMegillatEsther}
       />
     </SwipeableDrawer>
   );

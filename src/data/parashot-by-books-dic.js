@@ -313,7 +313,23 @@ export const holidaysHebEnDic = {
   },
 
   Chanukah: { he: 'חנוכה', en: 'Chanukah', page: 158 },
-  Purim: { he: 'פורים', en: 'Purim', page: 81 },
+  Purim: {
+    he: 'פורים',
+    en: 'Purim',
+    subHolidays: {
+      'Torah Reading for Purim': {
+        he: 'קריאת התורה לפורים',
+        en: 'Torah Reading for Purim',
+        page: 81,
+      },
+      'Megillat Esther': {
+        he: 'מגילת אסתר',
+        en: 'Megillat Esther',
+        page: 1,
+        isMegillatEsther: true,
+      },
+    },
+  },
   'Arba parashiyot': {
     he: 'ארבע פרשיות',
     en: 'Arba Parashiyot',

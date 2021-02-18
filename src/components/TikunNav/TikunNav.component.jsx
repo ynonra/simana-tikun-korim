@@ -41,6 +41,7 @@ const TikunNav = ({
   handleClickSaveBookmark,
   isLearnMode,
   lang,
+  isMegillatEsther,
 }) => {
   const [instructionOpen, setInstructionOpen] = useState(false);
 
@@ -55,7 +56,18 @@ const TikunNav = ({
   const paletteButtonsContainerRef = useRef(null);
   const aliyotButtonsRef = useRef(null);
 
-  const aliyotButtonsHebArr = ['א', 'ב', 'ג', 'ד', 'ה', 'ו', 'ז'];
+  const aliyotButtonsHebArr = [
+    'א',
+    'ב',
+    'ג',
+    'ד',
+    'ה',
+    'ו',
+    'ז',
+    'ח',
+    'ט',
+    'י',
+  ].slice(0, isMegillatEsther ? 10 : 7);
 
   return (
     <nav className="tikun-side-nav">
@@ -141,16 +153,25 @@ const TikunNav = ({
           {tikunSideNav.addBookmark[lang]}
         </Button>
       ) : null}
-      {!isHoliday && !isBookmark && !isLearnMode ? (
+      {(!isHoliday && !isBookmark && !isLearnMode) || isMegillatEsther ? (
         <>
           <Button
             className="nav-button"
             startIcon={<LocalLibrary />}
             onClick={() => aliyotButtonsRef.current.classList.toggle('hide')}
           >
-            {tikunSideNav.scrollToAliya[lang]}
+            {
+              tikunSideNav[
+                isMegillatEsther ? 'scrollToChapter' : 'scrollToAliya'
+              ][lang]
+            }
           </Button>
-          <nav className="aliyot-buttons hide rtl" ref={aliyotButtonsRef}>
+          <nav
+            className={`aliyot-buttons ${
+              isMegillatEsther ? 'is-megillat-esther' : ''
+            } hide rtl`}
+            ref={aliyotButtonsRef}
+          >
             {aliyotButtonsHebArr.map((aliyaName) => {
               const aliyaNum =
                 aliyotButtonsHebArr.findIndex((i) => i === aliyaName) + 1;

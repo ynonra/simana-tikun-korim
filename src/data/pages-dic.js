@@ -539,6 +539,18 @@ export default {
     aliya_6: 245,
     aliya_7: 245,
   },
+  'מגילת אסתר': {
+    perek_1: 1,
+    perek_2: 3,
+    perek_3: 6,
+    perek_4: 7,
+    perek_5: 9,
+    perek_6: 11,
+    perek_7: 12,
+    perek_8: 14,
+    perek_9: 16,
+    perek_10: 20,
+  },
 };
 
 export const parashotPagesDic = {

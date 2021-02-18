@@ -23,7 +23,7 @@ function closeFullscreen(orientaionFuncCallback) {
 }
 
 export function lockOrientaion(orientation, setIsToraPageReady) {
-  const lockOrientaionFunc = window.screen.orientation.lock;
+  const lockOrientaionFunc = window.screen?.orientation?.lock;
   if (!lockOrientaionFunc || checkOrientation(orientation)) return;
 
   const rotatedOrientationTypeName = checkOrientation('landscape')
@@ -36,7 +36,7 @@ export function lockOrientaion(orientation, setIsToraPageReady) {
 }
 
 export function unlockOrientation() {
-  const unlockOrientaionFunc = window.screen.orientation.unlock;
+  const unlockOrientaionFunc = window.screen?.orientation?.unlock;
   if (!unlockOrientaionFunc) return;
 
   closeFullscreen(() => window.screen.orientation.unlock());
@@ -51,5 +51,5 @@ export function toggleOrientationLock(setIsToraPageReady) {
 }
 
 export function checkOrientation(orientation) {
-  return window.screen.orientation.type.includes(orientation);
+  return window.screen?.orientation?.type?.includes(orientation);
 }

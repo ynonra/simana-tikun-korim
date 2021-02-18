@@ -23,10 +23,18 @@ const ToraPageContent = ({
   isBookmarkLineSelectionMode,
   isLearnMode,
   usageMode,
+  isMegillatEsther,
 }) => {
   const [nikudMode, setNikudMode] = useState(true);
   const textWithNikud = useRef(null);
   const textWithoutNikud = useRef(null);
+
+  const specialTextMode =
+    isMegillatEsther && pageNum === 17
+      ? 'is-aseret-bney-haman-mode'
+      : pageNum === 78
+      ? 'is-shirat-hayam-mode'
+      : '';
 
   useEffect(() => {
     if (!textWithNikud.current || !textWithoutNikud.current) return;
@@ -45,11 +53,7 @@ const ToraPageContent = ({
   }
 
   return (
-    <div
-      className={`humash-text ${
-        pageNum === 78 ? 'is-shirat-hayam-mode' : ''
-      } noselect rtl`}
-    >
+    <div className={`humash-text ${specialTextMode} noselect rtl`}>
       {isPageTextReady ? (
         <div
           className="just-humash-text"

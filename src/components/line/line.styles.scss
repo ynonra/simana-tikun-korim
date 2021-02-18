@@ -1,4 +1,4 @@
-@import '../../util/css-variables.scss';
+@import "../../util/css-variables.scss";
 
 .tikun-reading-page-container {
   // .tora-page {
@@ -31,7 +31,7 @@
         border-left: 2px solid black;
         border-radius: 0.15em;
         &::before {
-          content: '';
+          content: "";
           position: absolute;
           top: calc(50% - 0.1em);
           right: calc(100% + 2px);
@@ -84,6 +84,7 @@
         height: 80% !important;
         font-size: 0.7em !important;
         word-spacing: 0.1em;
+        line-height: 1;
       }
     }
 

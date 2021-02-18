@@ -15,7 +15,13 @@ import { parashotHebEnDic } from '../../data/parashot-by-books-dic';
 import { tikunReadingPageText } from '../../data/lang-dic';
 import './ToraPageHeader.styles.scss';
 
-const ToraPageHeader = ({ pageNum, setSideNavOpen, haftaraData, lang }) => {
+const ToraPageHeader = ({
+  pageNum,
+  setSideNavOpen,
+  haftaraData,
+  isMegillatEsther,
+  lang,
+}) => {
   const parashotInPage = haftaraData
     ? [haftaraData[lang]]
     : clacParashotInPage(pageNum)[lang];
@@ -26,24 +32,35 @@ const ToraPageHeader = ({ pageNum, setSideNavOpen, haftaraData, lang }) => {
     setSideNavOpen(true);
   }
   return (
-    <div className="tora-page-header noselect rtl">
-      <div className="menu-button-container">
-        <Fab
-          aria-label="settings"
-          className="settings-icon"
-          size="small"
-          onClick={menuIconClickHandler}
-        >
-          <SettingsIcon />
-        </Fab>
-      </div>
-      <div className={`titles lang-${lang}`}>
-        <h1 className="right-title">
-          {haftaraData
-            ? tikunReadingPageText.headerHaftaraTitle[lang]
-            : tikunReadingPageText.headerParshaTitle[lang]}
-        </h1>
-        <h1 className="left-title">{parashotNames}</h1>
+    <div className="container">
+      {Number.isInteger(pageNum) ? (
+        <div className="tora-page-number noselect">{pageNum}</div>
+      ) : null}
+      <div className="tora-page-header noselect rtl">
+        <div className="menu-button-container">
+          <Fab
+            aria-label="settings"
+            className="settings-icon"
+            size="small"
+            onClick={menuIconClickHandler}
+          >
+            <SettingsIcon />
+          </Fab>
+        </div>
+        <div className={`titles lang-${lang}`}>
+          <h1 className="right-title">
+            {haftaraData
+              ? tikunReadingPageText.headerHaftaraTitle[lang]
+              : isMegillatEsther
+              ? tikunReadingPageText.headerMegillatEstherTitle[lang][0]
+              : tikunReadingPageText.headerParshaTitle[lang]}
+          </h1>
+          <h1 className="left-title">
+            {isMegillatEsther
+              ? tikunReadingPageText.headerMegillatEstherTitle[lang][1]
+              : parashotNames}
+          </h1>
+        </div>
       </div>
     </div>
   );

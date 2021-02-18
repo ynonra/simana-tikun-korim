@@ -77,7 +77,7 @@ function App({ setUsageMode, setNotesData, lang }) {
             <Route path="/tikun-korim" component={TikunHomePage} />
             <Route path="/learn-teamim" component={LearnTeamimHomePage} />
             <Route path="/about" component={AboutPage} />
-            <Route path="*" component={Page404} />
+            <Route component={Page404} />
           </CustomAnimatedSwitch>
         </div>
       </StylesProvider>
